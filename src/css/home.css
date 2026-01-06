@@ -1,0 +1,144 @@
+@font-face {
+  font-family: 'Orbitron-Bold';
+  src: url('../assets/fonts/orbitron-bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Bank Sans EF Condensed";
+  src: url("../assets/fonts/banksansefcy_med.woff") format("woff");
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.home-container {
+    overflow: hidden;
+    padding: 300px 0 80px;
+    position: relative;
+}
+.home-video {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: auto;
+    object-fit: cover;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+.logo-container {
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.logo-container img {
+    height: auto;
+    max-width: 900px;
+    width: 100%;
+}
+.logo-subtitle {
+    background-color: #0009;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px #0006;
+    color: #fff;
+    font-family: "Bank Sans EF Condensed";
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    max-width: 600px;
+    padding: 1rem 1.5rem;
+    text-align: left;
+}
+.search-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.category-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+  background: #007bff;
+  color: white;
+}
+
+.category-btn.active {
+  background: #007bff;
+  color: white;
+}
+
+.search-section {
+  text-align: center;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.results-container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: white;
+}
+
+.result-item {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.result-item:hover {
+  background: #f8f9fa;
+}
+
+.result-item.clickable {
+  color: #007bff;
+  font-weight: 500;
+}
+
+.result-item.clickable:hover {
+  background: #e3f2fd;
+  transform: translateX(3px);
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}

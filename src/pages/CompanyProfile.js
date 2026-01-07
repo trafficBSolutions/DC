@@ -84,8 +84,81 @@ const CompanyProfile = () => {
       services: ['Electricity Generation', 'Power Distribution', 'Energy Efficiency', 'Renewable Energy', 'Grid Modernization'],
       yearsInBusiness: 95,
       capabilityStatement: 'Leading electric utility with 95 years of reliable service. Expertise in power generation, transmission, and distribution with commitment to clean energy and grid modernization.'
+    },
+    'CSTE Inc.': {
+      name: 'CSTE Inc.',
+      industry: 'Energy & Utilities',
+      location: 'Marietta, GA',
+      employees: '500+',
+      description: 'CSTE Inc. is a utility infrastructure company focused on construction, logistics, hauling & material management needs.',
+      website: 'www.csteinc.com',
+      jobs: [
+        { title: 'Concrete Mixer Operator', description: 'Operate concrete mixers and maintain equipment. PE license and 5+ years experience required.' },
+        { title: 'Truck Driver', description: 'Drive trucks for hauling and material management. Specialized training and certification required.' },
+        { title: 'Customer Service Representative', description: 'Assist customers with billing and service inquiries. Strong communication skills required.' }
+      ],
+      applicationType: 'external',
+      businessSummary: 'With a commitment to excellence and a reputation for reliability, we specialize in providing a seamless, end-to-end service that ensures the smoothest transportation and construction processes. From logistics planning to on-site execution, CSTE Inc. is your trusted partner in utility infrastructure solutions.',
+      certifiedFields: ['Concrete Mixing', 'Material Hauling', 'Logistics Planning', 'Utility Infrastructure'],
+      licenseContact: {
+        license: 'GA PSC Certificate #11111',
+        phone: '(470) 708-0993',
+        email: 'Jerry@csteinc.com'
+      },
+      services: ['Concrete Mixing', 'Material Hauling', 'Logistics Planning', 'Utility Infrastructure'],
+      yearsInBusiness: 95,
+      capabilityStatement: 'CSTE Inc. is a utility infrastructure company with extensive experience in construction, logistics, hauling, and material management. We pride ourselves on delivering reliable and efficient services to meet the diverse needs of our clients.'
+    },
+    'Southern Company': {
+      name: 'Southern Company',
+      industry: 'Energy & Utilities',
+      location: 'Marietta, GA',
+      employees: '500+',
+      description: 'Southern Company is a major utility company focused on electricity generation and distribution.',
+      website: 'www.southerncompany.com',
+      jobs: [
+        { title: 'Gas Plant Operator', description: 'Operate gas plants and maintain equipment. PE license and 5+ years experience required.' },
+        { title: 'Gas line Operator', description: 'Operate gas lines and maintain equipment. Specialized training and certification required.' },
+        { title: 'Customer Service Representative', description: 'Assist customers with billing and service inquiries. Strong communication skills required.' }
+      ],
+      applicationType: 'external',
+      businessSummary: 'With a commitment to excellence and a reputation for reliability, we specialize in providing a seamless, end-to-end service that ensures the smoothest transportation and construction processes. From logistics planning to on-site execution, CSTE Inc. is your trusted partner in utility infrastructure solutions.',
+      certifiedFields: ['Gas Plant Operations', 'Gas Line Operations', 'Power Distribution', 'Renewable Energy', 'Grid Modernization'],
+      licenseContact: {
+        license: 'GA PSC Certificate #11111',
+        phone: '(470) 580-8777',
+        email: 'dylasmit@southernco.com'
+      },
+      services: ['Gas Plant Operations', 'Gas Line Operations', 'Power Distribution', 'Renewable Energy', 'Grid Modernization'],
+      yearsInBusiness: 95,
+      capabilityStatement: 'Southern Company is a major utility company with extensive experience in electricity generation and distribution. We pride ourselves on delivering reliable and efficient services to meet the diverse needs of our clients.'
+    },
+    'The Surface Masters': {
+      name: 'The Surface Masters',
+      industry: 'Construction & Infrastructure',
+      location: 'Atlanta, GA',
+      employees: '100-200',
+      description: 'The Surface Masters is a leading provider of pavement maintenance and repair solutions.',
+      website: 'www.thesurfacemasters.com',
+      jobs: [
+        { title: 'Pavement Maintenance Technician', description: 'Perform pavement maintenance and repair tasks. Requires experience in asphalt and concrete work.' },
+        { title: 'Equipment Operator', description: 'Operate heavy machinery for pavement projects. CDL preferred.' },
+        { title: 'Project Manager', description: 'Oversee pavement maintenance projects. Strong organizational skills required.' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'The Surface Masters has been providing top-quality pavement maintenance and repair services for over 20 years, serving commercial and municipal clients across the region.',
+      certifiedFields: ['Asphalt Repair', 'Concrete Maintenance', 'Sealcoating', 'Pavement Marking'],
+      licenseContact: {
+        license: 'GA Construction License #54321',
+        phone: '(770) 555-1234',
+        email: 'KtF9o@example.com'
+      },
+      services: ['Asphalt Repair', 'Concrete Maintenance', 'Sealcoating', 'Pavement Marking'],
+      yearsInBusiness: 20,  
+      capabilityStatement: 'Experienced pavement maintenance company specializing in asphalt and concrete repair, sealcoating, and pavement marking. Committed to quality workmanship and customer satisfaction.'
     }
-  };
+  }
+  
 
   const company = companyData[companyName] || {
     name: companyName,

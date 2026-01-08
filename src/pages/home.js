@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Header from "../components/headers/homeHeader";
 import Footer from "../components/footers/homeFooter";
-import AIMatchingDemo from "../components/AIMatchingDemo";
+//import AIMatchingDemo from "../components/AIMatchingDemo";
+import { getAllJobListings, getCompanyNames, getCategorizedServiceTypes, getCompaniesByService } from '../data/companyData';
+import ServiceProvidersModal from '../components/ServiceProvidersModal';
 import '../css/header.css';
 import '../css/home.css';
 import '../css/footer.css';
@@ -11,13 +13,19 @@ const Home = () => {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedService, setSelectedService] = useState(null);
+  const [serviceResults, setServiceResults] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
+  const [showServiceModal, setShowServiceModal] = useState(false);
+  const [currentService, setCurrentService] = useState('');
+  const [serviceProviders, setServiceProviders] = useState([]);
 
   // Sample data - replace with actual data from your API
+  const serviceCategories = getCategorizedServiceTypes();
   const data = {
-    'Company List': ['Traffic & Barrier Solutions, LLC', 'In-Telecom', 'Georgia Power', 'CSTE Inc.', 'Southern Company', 'The Surface Masters'].sort(),
-    'Job Listings': ['Software Engineer', 'Data Scientist', 'Product Manager', 'UX Designer', 'Marketing Manager', 'Sales Representative', 'DevOps Engineer', 'Business Analyst'].sort(),
-    'Service Types': ['Consulting', 'Development', 'Design', 'Marketing', 'Support', 'Training', 'Analytics', 'Strategy'].sort()
+    'Company List': getCompanyNames(),
+    'Job Listings': getAllJobListings().map(job => `${job.title} - ${job.company}`),
+    'Service Types': Object.keys(serviceCategories)
   };
 
   const handleCategoryClick = (category) => {
@@ -41,7 +49,25 @@ const Home = () => {
   const handleItemClick = (item) => {
     if (activeCategory === 'Company List') {
       navigate(`/company/${encodeURIComponent(item)}`);
+    } else if (activeCategory === 'Service Types') {
+      setSelectedService(item);
+      const services = serviceCategories[item] || [];
+      setServiceResults(services);
     }
+  };
+
+  const handleServiceClick = (service) => {
+    const companies = getCompaniesByService(service).map(company => ({
+      name: company.name,
+      location: 'Calhoun, GA', // You can enhance this with actual location data
+      phone: 'Contact via profile',
+      email: 'Email via profile'
+    }));
+    setCurrentService(service);
+    setServiceProviders(companies);
+    setShowServiceModal(true);
+    setSelectedService(null);
+    setServiceResults([]);
   };
 
   return (
@@ -84,21 +110,33 @@ const Home = () => {
               onChange={(e) => handleSearch(e.target.value)}
             />
             <div className="results-container">
-              {filteredResults.map((item, index) => (
-                <div 
-                  key={index} 
-                  className={`result-item ${activeCategory === 'Company List' ? 'clickable' : ''}`}
-                  onClick={() => handleItemClick(item)}
-                >
-                  {item}
-                </div>
-              ))}
+              {selectedService ? (
+                serviceResults.map((service, index) => (
+                  <div 
+                    key={index} 
+                    className="result-item clickable"
+                    onClick={() => handleServiceClick(service)}
+                  >
+                    {service}
+                  </div>
+                ))
+              ) : (
+                filteredResults.map((item, index) => (
+                  <div 
+                    key={index} 
+                    className={`result-item ${activeCategory === 'Company List' || activeCategory === 'Service Types' ? 'clickable' : ''}`}
+                    onClick={() => handleItemClick(item)}
+                  >
+                    {item}
+                  </div>
+                ))
+              )}
             </div>
           </div>
         )}
       </div>
       
-      <AIMatchingDemo />
+      {/*<AIMatchingDemo />
       
       <div className="testimonials-section">
         <h3 className="section-title">Success Stories</h3>
@@ -158,6 +196,15 @@ const Home = () => {
           </div>
         </div>
       </div>
+*/}
+      {showServiceModal && (
+        <ServiceProvidersModal 
+          service={currentService}
+          companies={serviceProviders}
+          onClose={() => setShowServiceModal(false)}
+        />
+      )}
+      
       <Footer />
     </div>
   );

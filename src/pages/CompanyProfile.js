@@ -2,17 +2,357 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from "../components/headers/homeHeader";
 import Footer from "../components/footers/homeFooter";
+import ServiceProvidersModal from '../components/ServiceProvidersModal';
+import images from '../utils/images';
 import '../css/header.css';
 import '../css/footer.css';
 import '../css/companyProfile.css';
 
 const CompanyProfile = () => {
   const { companyName } = useParams();
-  const [showApplicationForm, setShowApplicationForm] = useState(false);
-  const [selectedJob, setSelectedJob] = useState('');
+  const [showServiceModal, setShowServiceModal] = useState(false);
+  const [selectedService, setSelectedService] = useState('');
   
   // Sample company data - replace with API call
   const companyData = {
+    'Calhoun Truck Repair': {
+      name: 'Calhoun Truck Repair',
+      industry: 'Automotive & Repair',
+      location: 'Calhoun, GA',
+      employees: '50-100',
+      description: 'Calhoun Truck Repair is a full-service truck repair and maintenance shop serving commercial vehicles.',
+      website: 'www.facebook.com/pages/calhoun-truck-repair/134368803279999',
+      jobs: [
+        { title: 'Mechanic', description: 'Diagnose and repair mechanical issues on commercial vehicles.' },
+        { title: 'Electrical Technician', description: 'Repair and maintain electrical systems on commercial vehicles.' },
+        { title: 'Tire Specialist', description: 'Replace and repair tires on commercial vehicles.' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Full-service truck repair and maintenance shop serving commercial vehicles.',
+      certifiedFields: ['Mechanical Engineering', 'Electrical Engineering', 'Tire Repair'],
+      licenseContact: {
+        address: '186 White Hill Dr',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(678) 848-5453',
+        email: 'rainesj597@gmail.com'
+      },
+      services: ['Mechanical Repair', 'Electrical Repair', 'Tire Repair', 'Maintenance'],
+      yearsInBusiness: 5,
+      capabilityStatement: 'Certified truck repair and maintenance expert with 5 years of experience in commercial vehicle maintenance.'
+    },
+    'CrossFit Calhoun': {
+      name: 'CrossFit Calhoun',
+      industry: 'Fitness & Wellness',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'CrossFit affiliate gym focused on functional fitness and community building.',
+      website: 'www.crossfitcalhoun.com',
+      jobs: [
+        { title: 'CrossFit Instructor', description: 'Lead group fitness classes and provide coaching. Requires CrossFit Level 1 certification.' },
+        { title: 'Fitness Coach', description: 'Provide one-on-one training sessions and nutrition guidance. Requires personal training certification.' },
+        { title: 'Front Desk Staff', description: 'Manage member check-ins and gym operations. Customer service experience preferred.' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Community-focused CrossFit affiliate dedicated to helping members achieve their fitness goals through high-intensity workouts and supportive environment.',
+      certifiedFields: ['CrossFit Level 1', 'Personal Training', 'Nutrition Coaching', 'Group Fitness Instruction'],
+      licenseContact: {
+        address: '450 Elm St',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(678) 986-6758',
+        email: 'No Email'
+      },
+      services: ['Group Fitness Classes', 'Personal Training', 'Nutrition Coaching', 'Workout Plans', 'Community Events'],
+      yearsInBusiness: 4,
+      capabilityStatement: 'Certified CrossFit affiliate with 4 years of experience in functional fitness training. Specialized in creating supportive community environments for all fitness levels.'
+    },
+    'CrossFit Trackside': {
+      name: 'CrossFit Trackside',
+      industry: 'Fitness & Wellness',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'CrossFit affiliate gym focused on functional fitness and community building.',
+      website: 'www.cftrackside.com',
+      jobs: [
+        { title: 'CrossFit Instructor', description: 'Lead group fitness classes and provide coaching. Requires CrossFit Level 1 certification.' },
+        { title: 'Fitness Coach', description: 'Provide one-on-one training sessions and nutrition guidance. Requires personal training certification.' },
+        { title: 'Front Desk Staff', description: 'Manage member check-ins and gym operations. Customer service experience preferred.' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Community-focused CrossFit affiliate dedicated to helping members achieve their fitness goals through high-intensity workouts and supportive environment.',
+      certifiedFields: ['CrossFit Level 1', 'Personal Training', 'Nutrition Coaching', 'Group Fitness Instruction'],
+      licenseContact: {
+        address: '120 N King St Unit 4',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 420-4101',
+        email: 'No Email'
+      },
+      services: ['Group Fitness Classes', 'Personal Training', 'Nutrition Coaching', 'Workout Plans', 'Community Events'],
+      yearsInBusiness: 4,
+      capabilityStatement: 'Certified CrossFit affiliate with 4 years of experience in functional fitness training. Specialized in creating supportive community environments for all fitness levels.'
+    },
+    'CR Coatings LLC': {
+      name: 'CR Coatings LLC',
+      industry: 'Construction & Infrastructure',
+      location: 'Calhoun, GA',
+      employees: '50-100',
+      description: 'CR Coatings LLC is a leading provider of parking lot striping and pavement marking services for commercial and retail properties.',
+      website: 'www.crcoatingsllc.com',
+      jobs: [
+        { title: 'Striping Technician', description: 'Apply parking lot striping and pavement markings. Requires experience with striping equipment.' },
+        { title: 'Project Supervisor', description: 'Oversee striping projects and manage teams. Strong leadership skills required.' },
+        { title: 'Equipment Operator', description: 'Operate striping machines and maintain equipment. Attention to detail required.' }
+      ],
+      applicationType: 'external',
+      businessSummary: 'With over 20 years of experience, CR Coatings LLC specializes in providing high-quality parking lot striping and pavement marking services for retail centers, office complexes, and commercial properties.',
+      certifiedFields: ['Parking Lot Striping', 'Line Painting', 'Pavement Marking', 'Handicap Symbols'],
+      licenseContact: {
+        address: 'P O Box 505',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30703',
+        phone: '(770) 548-4325',
+        email: 'info@crcoatingsllc.com'
+      },
+      services: ['Parking Lot Striping', 'Line Painting', 'Pavement Marking', 'Handicap Symbols', 'Fire Lane Marking'],
+      yearsInBusiness: 20,
+      capabilityStatement: 'CR Coatings LLC is a certified provider of parking lot striping and pavement marking services with over 20 years of industry experience. We are committed to delivering high-quality striping solutions that meet ADA compliance and safety standards.'
+    },
+    'CSTE Inc.': {
+      name: 'CSTE Inc.',
+      industry: 'Construction & Infrastructure',
+      location: 'Marietta, GA',
+      employees: '500+',
+      description: 'CSTE Inc. is a comprehensive construction and logistics company specializing in construction services, hauling, and material management solutions.',
+      website: 'www.csteinc.com',
+      jobs: [
+        { title: 'Construction Worker', description: 'Perform construction tasks including excavation and site preparation. Construction experience required.' },
+        { title: 'Truck Driver', description: 'Drive trucks for hauling and material management. CDL required with clean driving record.' },
+        { title: 'Logistics Coordinator', description: 'Coordinate logistics operations and supply chain management. Strong organizational skills required.' }
+      ],
+      applicationType: 'external',
+      businessSummary: 'CSTE Inc. brings your construction vision to life with skilled construction teams equipped to handle projects from excavation and site preparation to structural work. Our fleet of state-of-the-art vehicles provides hauling and material management services, while our logistics expertise ensures comprehensive supply chain solutions.',
+      certifiedFields: ['Construction Services', 'Excavation', 'Hauling Services', 'Logistics Planning'],
+      licenseContact: {
+        address: '1337 Canton Rd Suite K',
+        city: 'Marietta',
+        state: 'GA',
+        zipCode: '30066',
+        phone: '(470) 708-0993',
+        email: 'Jerry@csteinc.com'
+      },
+      services: ['Construction Services', 'Excavation', 'Site Preparation', 'Hauling Services', 'Material Management', 'Logistics Planning', 'Supply Chain Solutions'],
+      yearsInBusiness: 95,
+      capabilityStatement: 'CSTE Inc. is a comprehensive construction and logistics company with extensive experience in construction services, hauling, and material management. We excel in delivering high-quality results on time and within budget, with expertise in logistics planning and supply chain solutions.'
+    },
+    'Fair`s Auto Service': {
+      name: 'Fair`s Auto Service',
+      industry: 'Automotive & Repair',
+      location: 'Calhoun, GA',
+      employees: '500+',
+      description: 'Fair`s Auto Service is a local automotive repair shop providing comprehensive vehicle maintenance and repair services.',
+      website: 'www.fairsautoservice.com',
+      jobs: [
+        { title: 'No Jobs Posted', description: 'Not available' },
+      ],
+      applicationType: 'external',
+      businessSummary: 'Family-owned automotive repair shop with over 30 years of experience in providing quality vehicle maintenance and repair services to the Calhoun community.',
+      certifiedFields: ['Automotive Repair', 'Vehicle Maintenance', 'Brake Services', 'Engine Diagnostics'],
+      licenseContact: {
+        address: '101 Westwind Industrial Dr',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 629-9877',
+        email: 'fairsautoservice@yahoo.com'
+      },
+      services: ['Automotive Repair', 'Vehicle Maintenance', 'Brake Services', 'Engine Diagnostics'],
+      yearsInBusiness: 30,
+      capabilityStatement: 'Fair`s Auto Service is a local automotive repair shop providing comprehensive vehicle maintenance and repair services.'
+    },
+    'First Baptist Church of Calhoun': {
+      name: 'First Baptist Church of Calhoun',
+      industry: 'Religious Organization',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'First Baptist Church of Calhoun is a local religious organization dedicated to community service and spiritual growth.',
+      website: 'www.calhounfbc.org',
+      jobs: [
+        { title: 'No Jobs Posted', description: 'Not available' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Local church dedicated to community service and spiritual growth.',
+      certifiedFields: ['Religious Organization', 'Community Outreach', 'Volunteer Management', 'Event Planning'],
+      licenseContact: {
+        address: '411 College St',
+        city: 'Calhoun',
+        zipCode: '30701',
+        phone: '(706) 629-7714',
+        email: 'steven.waters@calhounfbc.org'
+      },
+      services: ['Community Outreach', 'Volunteer Management', 'Event Planning', 'Religious Education'],
+      yearsInBusiness: 70,
+      capabilityStatement: 'Certified religious organization with 5 years of experience in community service and spiritual growth. We are committed to providing a safe and welcoming environment for all members.'
+    },
+    'Good Samaritans of Gordon County, Inc.': {
+      name: 'Good Samaritans of Gordon County, Inc.',
+      industry: 'Non-Profit',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'Good Samaritans of Gordon County, Inc. is a non-profit organization dedicated to community service and support.',
+      website: 'www.facebook.com/p/Good-Samaritan-of-Gordon-County-Inc-61572794194541/',
+      jobs: [
+        { title: 'No Jobs Posted', description: 'Not available' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Good Samaritans of Gordon County, Inc. is a non-profit organization dedicated to community service and support.',
+      certifiedFields: ['Non-Profit', 'Community Service', 'Support Programs', 'Volunteer Management'],
+      licenseContact: {
+        address: '373 Morrow Rd SE',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 602-2299',
+        email: 'No Email'
+      },
+      services: ['Community Service', 'Support Programs', 'Volunteer Management', 'Event Planning'],
+      yearsInBusiness: 25,
+      capabilityStatement: 'Good Samaritans of Gordon County, Inc. is a certified non-profit organization with extensive experience in community service and support programs.'
+    },
+    'Landscape Creations': {
+      name: 'Landscape Creations',
+      industry: 'Construction & Infrastructure',
+      location: 'Calhoun, GA',
+      employees: '50-100',
+      description: 'Landscape Creations is a leading provider of landscape design and construction services.',
+      website: 'www.landscapecreationsga.com',
+      jobs: [
+        { title: 'No Jobs Posted', description: 'Not available' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Landscape Creations is a leading provider of landscape design and construction services.',
+      certifiedFields: ['Landscape Design', 'Construction', 'Hardscaping', 'Planting & Irrigation'],
+      licenseContact: {
+        address: '1400 US-41',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 280-3130',
+        email: 'wadavis21@outlook.com'
+      },
+      services: ['Landscape Design', 'Construction', 'Hardscaping', 'Planting & Irrigation'],
+      yearsInBusiness: 20,  
+      capabilityStatement: 'Landscape Creations is a leading provider of landscape design and construction services.'
+    },
+    'Morning Pointe of Calhoun': {
+      name: 'Morning Pointe of Calhoun',
+      industry: 'Senior Living & Memory Care',
+      location: 'Calhoun, GA',
+      employees: '25-50',
+      description: 'Morning Pointe Senior Living of Calhoun offers assisted living and memory care services in a comfortable, one-story, home-like community.',
+      website: 'www.morningpointe.com',
+      jobs: [
+        { title: 'Certified Nursing Assistant', description: 'Provide compassionate care to residents in assisted living and memory care. CNA certification required.' },
+        { title: 'Activities Coordinator', description: 'Plan and lead engaging activities for residents. Experience with seniors preferred.' },
+        { title: 'Dietary Aide', description: 'Assist with meal preparation and service. Food service experience helpful.' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'At Morning Pointe Senior Living of Calhoun, we offer the ability for loved ones to receive just the right amount of care within a city they have grown to love. We have designed a comfortable, one-story, home-like assisted living and memory care community that gives our residents a better quality of life. Owned and operated by the same two founders for over 25 years.',
+      certifiedFields: ['Assisted Living', 'Memory Care', 'Senior Services', 'Healthcare'],
+      licenseContact: {
+        address: '660 Jolly Rd NW',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 629-0777',
+        email: 'Calhoun-ed@morningpointe.com'
+      },
+      services: ['Assisted Living', 'Memory Care', 'Senior Healthcare', 'Family Support Services', 'Personalized Care Plans'],
+      yearsInBusiness: 25,
+      capabilityStatement: 'Morning Pointe of Calhoun has served generations of area families with long-time, tenured staff offering personalized, family-like care. Centrally located near Gordon Health and Rehabilitation, close to Adairsville, Dalton, and Rome, Georgia. We help make life more joyful for residents and their families with comprehensive care plans and everyday activity assistance.'
+    },
+    'Muse Land Services LLC': {
+      name: 'Muse Land Services LLC',
+      industry: 'Construction & Infrastructure',
+      location: 'Calhoun, GA',
+      employees: '50-100',
+      description: 'Muse Land Services LLC provides comprehensive land development services including grading, site preparation, drainage, and land clearing for commercial and residential projects.',
+      website: 'www.muselandservices.org',
+      jobs: [
+        { title: 'Heavy Equipment Operator', description: 'Operate bulldozers, excavators, and grading equipment. Requires heavy equipment certification and experience.' },
+        { title: 'Dump Truck Driver', description: 'Drive dump trucks for material hauling and site work. CDL required with clean driving record.' },
+        { title: 'Site Foreman', description: 'Supervise land development projects and manage crews. Strong leadership and construction experience required.' }
+      ],
+      applicationType: 'external',
+      businessSummary: 'Muse Land Services LLC is a trusted provider of land development services, specializing in grading, site preparation, drainage solutions, and land clearing for both commercial and residential projects.',
+      certifiedFields: ['Grading and Site Prep', 'Drainage Systems', 'Land Clearing', 'Erosion Control'],
+      licenseContact: {
+        address: '203 Holbrook Rd NW',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(770) 548-5283',
+        email: 'museland@att.net'
+      },
+      services: ['Grading and Site Prep', 'Road and Parking', 'Drainage', 'Dump Truck Services', 'Utility Location', 'Land Clearing', 'Forestry Mulching', 'Erosion Control', 'Pond Construction'],
+      yearsInBusiness: 10,
+      capabilityStatement: 'Muse Land Services LLC is a certified land development company with extensive experience in commercial and residential site preparation, drainage solutions, and land clearing services. We pride ourselves on delivering reliable and efficient solutions for all your land development needs.'
+    },
+    'Peel Aesthetics': {
+      name: 'Peel Aesthetics',
+      industry: 'Health & Wellness',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'Peel Aesthetics is a medical spa offering advanced skincare treatments and aesthetic services.',
+      website: 'www.peelaesthetics.com',
+      jobs: [
+        { title: 'No Jobs Posted', description: 'Not available' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Peel Aesthetics is a medical spa offering advanced skincare treatments and aesthetic services.',
+      certifiedFields: ['Skincare', 'Aesthetics', 'Medical Spa', 'Wellness Services'],
+      licenseContact: {
+        address: '668 Red Bud Rd NE',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(770) 548-3318',
+        email: 'glowaestheticsllc@gmail.com'
+      },
+      services: ['Skincare', 'Aesthetics', 'Medical Spa', 'Wellness Services'],
+      yearsInBusiness: 10,
+      capabilityStatement: 'Peel Aesthetics is a certified medical spa with extensive experience in advanced skincare treatments and aesthetic services.'
+    },
+    'Riverview Baptist Church': {
+      name: 'Riverview Baptist Church',
+      industry: 'Religious Organization',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'Riverview Baptist Church is a local religious organization dedicated to community service and spiritual growth.',
+      website: 'www.riverviewbaptistcalhoun.com',
+      jobs: [
+        { title: 'No Jobs Posted', description: 'Not available' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Local church dedicated to community service and spiritual growth.',
+      certifiedFields: ['Religious Organization', 'Community Outreach', 'Volunteer Management', 'Event Planning'],
+      licenseContact: {
+        address: '141 Liberty Rd SW',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 624-1811',
+        email: 'riverviewbaptistcalhoun@gmail.com'
+      },
+      services: ['Community Outreach', 'Volunteer Management', 'Event Planning', 'Religious Education'],
+      yearsInBusiness: 70,
+      capabilityStatement: 'Certified religious organization with 5 years of experience in community service and spiritual growth. We are committed to providing a safe and welcoming environment for all members.'
+    },
     'Traffic & Barrier Solutions, LLC': {
       name: 'Traffic & Barrier Solutions, LLC',
       industry: 'Construction & Infrastructure',
@@ -29,137 +369,98 @@ const CompanyProfile = () => {
       businessSummary: 'Established leader in traffic management solutions serving the Southeast region with comprehensive safety services.',
       certifiedFields: ['Traffic Control', 'Highway Safety', 'Construction Zone Management', 'Emergency Response'],
       licenseContact: {
-        license: 'GA Construction License #12345',
+        address: '721 N Wall St',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
         phone: '(706) 263-0175',
-        email: 'tbsolutions3@gmail.com'
+        email: 'tbsolutions1999@gmail.com'
       },
       services: ['Traffic Control Plans', 'Bollard/Wheel Stop Installation', 'Flagging Services', 'Equipment Rental', 'Safety Training'],
       yearsInBusiness: 6,
       capabilityStatement: 'Certified traffic control company with 15 years of experience managing complex construction projects. Specialized in highway work zones, emergency response, and large-scale infrastructure projects with proven safety record.'
     },
-    'In-Telecom': {
-      name: 'In-Telecom',
-      industry: 'Telecommunications',
-      location: 'Multiple Locations',
-      employees: '200-500',
-      description: 'Innovative telecommunications solutions provider specializing in network infrastructure and communication systems.',
-      website: 'www.in-telecom.com',
+    'Trinity Baptist Church': {
+      name: 'Trinity Baptist Church',
+      industry: 'Religious Organization',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'Trinity Baptist Church is a local religious organization dedicated to community service and spiritual growth.',
+      website: 'www.trinitycalhoun.com',
       jobs: [
-        { title: 'Network Engineer', description: 'Design and maintain telecommunications networks. Requires CCNA certification and 3+ years experience.' },
-        { title: 'Telecommunications Technician', description: 'Install and repair communication equipment. Technical certification preferred.' },
-        { title: 'Systems Administrator', description: 'Manage IT infrastructure and network systems. Bachelor\'s degree in IT required.' }
+        { title: 'Community Outreach Coordinator', description: 'Engage with the community and promote church events. No experience required.' },
+        { title: 'Volunteer Coordinator', description: 'Manage and coordinate volunteer programs. No experience required.' },
+        { title: 'Event Coordinator', description: 'Plan and execute church events. No experience required.' }
       ],
-      applicationType: 'external',
-      businessSummary: 'Premier telecommunications provider delivering cutting-edge network solutions across multiple markets.',
-      certifiedFields: ['Network Infrastructure', 'Fiber Optics', 'Wireless Communications', 'VoIP Systems'],
+
+      applicationType: 'form',
+      businessSummary: 'Local church dedicated to community service and spiritual growth.',
+      certifiedFields: ['Religious Organization', 'Community Outreach', 'Volunteer Management', 'Event Planning'],
       licenseContact: {
-        license: 'FCC License #67890',
-        phone: '(404) 555-0456',
-        email: 'careers@in-telecom.com'
+        address: '1170 Rome Rd SW',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 625-5683',
+        email: 'tiptontate@gmail.com'
       },
-      services: ['Network Design', 'Fiber Installation', 'Wireless Solutions', 'VoIP Services', 'Technical Support'],
-      yearsInBusiness: 22,
-      capabilityStatement: 'Leading telecommunications contractor with 22 years of experience in complex network deployments. Expertise in fiber optic installations, wireless networks, and enterprise communication solutions.'
+      services: ['Community Outreach', 'Volunteer Management', 'Event Planning', 'Religious Education'],
+      yearsInBusiness: 5,
+      capabilityStatement: 'Certified religious organization with 5 years of experience in community service and spiritual growth. We are committed to providing a safe and welcoming environment for all members.'
     },
-    'Georgia Power': {
-      name: 'Georgia Power',
-      industry: 'Energy & Utilities',
-      location: 'Atlanta, GA',
-      employees: '8,000+',
-      description: 'Georgia\'s largest electric utility, providing reliable and affordable energy to millions of customers.',
-      website: 'www.georgiapower.com',
+    'X4 Fitness Calhoun': {
+      name: 'X4 Fitness Calhoun',
+      industry: 'Fitness & Wellness',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'X4 Fitness Calhoun is a local fitness center offering personalized training and group classes.',
+      website: 'www.x4calhoun.com',
       jobs: [
-        { title: 'Electrical Engineer', description: 'Design and maintain electrical systems. PE license and 5+ years experience required.' },
-        { title: 'Power Plant Operator', description: 'Monitor and control power generation equipment. Specialized training and certification required.' },
-        { title: 'Customer Service Representative', description: 'Assist customers with billing and service inquiries. Strong communication skills required.' }
-      ],
-      applicationType: 'external',
-      businessSummary: 'Georgia\'s premier electric utility serving 2.6 million customers with reliable, clean energy solutions.',
-      certifiedFields: ['Electrical Generation', 'Power Distribution', 'Renewable Energy', 'Grid Management'],
-      licenseContact: {
-        license: 'GA PSC Certificate #11111',
-        phone: '(800) 555-7777',
-        email: 'hr@georgiapower.com'
-      },
-      services: ['Electricity Generation', 'Power Distribution', 'Energy Efficiency', 'Renewable Energy', 'Grid Modernization'],
-      yearsInBusiness: 95,
-      capabilityStatement: 'Leading electric utility with 95 years of reliable service. Expertise in power generation, transmission, and distribution with commitment to clean energy and grid modernization.'
-    },
-    'CSTE Inc.': {
-      name: 'CSTE Inc.',
-      industry: 'Energy & Utilities',
-      location: 'Marietta, GA',
-      employees: '500+',
-      description: 'CSTE Inc. is a utility infrastructure company focused on construction, logistics, hauling & material management needs.',
-      website: 'www.csteinc.com',
-      jobs: [
-        { title: 'Concrete Mixer Operator', description: 'Operate concrete mixers and maintain equipment. PE license and 5+ years experience required.' },
-        { title: 'Truck Driver', description: 'Drive trucks for hauling and material management. Specialized training and certification required.' },
-        { title: 'Customer Service Representative', description: 'Assist customers with billing and service inquiries. Strong communication skills required.' }
-      ],
-      applicationType: 'external',
-      businessSummary: 'With a commitment to excellence and a reputation for reliability, we specialize in providing a seamless, end-to-end service that ensures the smoothest transportation and construction processes. From logistics planning to on-site execution, CSTE Inc. is your trusted partner in utility infrastructure solutions.',
-      certifiedFields: ['Concrete Mixing', 'Material Hauling', 'Logistics Planning', 'Utility Infrastructure'],
-      licenseContact: {
-        license: 'GA PSC Certificate #11111',
-        phone: '(470) 708-0993',
-        email: 'Jerry@csteinc.com'
-      },
-      services: ['Concrete Mixing', 'Material Hauling', 'Logistics Planning', 'Utility Infrastructure'],
-      yearsInBusiness: 95,
-      capabilityStatement: 'CSTE Inc. is a utility infrastructure company with extensive experience in construction, logistics, hauling, and material management. We pride ourselves on delivering reliable and efficient services to meet the diverse needs of our clients.'
-    },
-    'Southern Company': {
-      name: 'Southern Company',
-      industry: 'Energy & Utilities',
-      location: 'Marietta, GA',
-      employees: '500+',
-      description: 'Southern Company is a major utility company focused on electricity generation and distribution.',
-      website: 'www.southerncompany.com',
-      jobs: [
-        { title: 'Gas Plant Operator', description: 'Operate gas plants and maintain equipment. PE license and 5+ years experience required.' },
-        { title: 'Gas line Operator', description: 'Operate gas lines and maintain equipment. Specialized training and certification required.' },
-        { title: 'Customer Service Representative', description: 'Assist customers with billing and service inquiries. Strong communication skills required.' }
-      ],
-      applicationType: 'external',
-      businessSummary: 'With a commitment to excellence and a reputation for reliability, we specialize in providing a seamless, end-to-end service that ensures the smoothest transportation and construction processes. From logistics planning to on-site execution, CSTE Inc. is your trusted partner in utility infrastructure solutions.',
-      certifiedFields: ['Gas Plant Operations', 'Gas Line Operations', 'Power Distribution', 'Renewable Energy', 'Grid Modernization'],
-      licenseContact: {
-        license: 'GA PSC Certificate #11111',
-        phone: '(470) 580-8777',
-        email: 'dylasmit@southernco.com'
-      },
-      services: ['Gas Plant Operations', 'Gas Line Operations', 'Power Distribution', 'Renewable Energy', 'Grid Modernization'],
-      yearsInBusiness: 95,
-      capabilityStatement: 'Southern Company is a major utility company with extensive experience in electricity generation and distribution. We pride ourselves on delivering reliable and efficient services to meet the diverse needs of our clients.'
-    },
-    'The Surface Masters': {
-      name: 'The Surface Masters',
-      industry: 'Construction & Infrastructure',
-      location: 'Atlanta, GA',
-      employees: '100-200',
-      description: 'The Surface Masters is a leading provider of pavement maintenance and repair solutions.',
-      website: 'www.thesurfacemasters.com',
-      jobs: [
-        { title: 'Pavement Maintenance Technician', description: 'Perform pavement maintenance and repair tasks. Requires experience in asphalt and concrete work.' },
-        { title: 'Equipment Operator', description: 'Operate heavy machinery for pavement projects. CDL preferred.' },
-        { title: 'Project Manager', description: 'Oversee pavement maintenance projects. Strong organizational skills required.' }
+        { title: 'Fitness Instructor', description: 'Lead group fitness classes and provide coaching. Requires fitness certification.' },
+        { title: 'Personal Trainer', description: 'Provide one-on-one training sessions. Requires personal training certification.' },
+        { title: 'Front Desk Staff', description: 'Manage member check-ins and gym operations. Customer service experience preferred.' }
       ],
       applicationType: 'form',
-      businessSummary: 'The Surface Masters has been providing top-quality pavement maintenance and repair services for over 20 years, serving commercial and municipal clients across the region.',
-      certifiedFields: ['Asphalt Repair', 'Concrete Maintenance', 'Sealcoating', 'Pavement Marking'],
+      businessSummary: 'Local fitness center focused on personalized training and community building.',
+      certifiedFields: ['Fitness Instruction', 'Personal Training', 'Group Fitness Coaching'],
       licenseContact: {
-        license: 'GA Construction License #54321',
-        phone: '(770) 555-1234',
-        email: 'KtF9o@example.com'
+        address: '120 N King St Suite 4',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 797-2091',
+        email: 'rrnibjr@gmail.com'
       },
-      services: ['Asphalt Repair', 'Concrete Maintenance', 'Sealcoating', 'Pavement Marking'],
-      yearsInBusiness: 20,  
-      capabilityStatement: 'Experienced pavement maintenance company specializing in asphalt and concrete repair, sealcoating, and pavement marking. Committed to quality workmanship and customer satisfaction.'
+      services: ['Group Fitness Classes', 'Personal Training', 'Nutrition Coaching', 'Workout Plans'],
+      yearsInBusiness: 2,
+      capabilityStatement: 'Certified fitness center with 2 years of experience in personalized training and community building.'
+    },
+    'Yellow Jacket Drive-In': {
+      name: 'Yellow Jacket Drive-In',
+      industry: 'Restaurant & Hospitality',
+      location: 'Calhoun, GA',
+      employees: '10-50',
+      description: 'Yellow Jacket Drive-In is a drive in and true diner experience serving classic historical Calhoun GA Landmark.',
+      website: 'www.facebook.com/p/Yellow-Jacket-Drive-In-100063590739596/',
+      jobs: [
+        { title: 'No Jobs Posted', description: 'Not available' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'Drive in and true diner experience serving classic Calhoun GA Landmark.',
+      certifiedFields: ['Drive-In Experience', 'True Diner', 'Entertainment'],
+      licenseContact: {
+        address: '159 Drive-In Way',
+        city: 'Calhoun',
+        state: 'GA',
+        zipCode: '30701',
+        phone: '(706) 629-4347',
+        email: 'Prbymissy@gmail.com'
+      },
+      services: ['Drive-In Experience', 'True Diner', 'Entertainment'],
+      yearsInBusiness: 10,
+      capabilityStatement: 'Certified drive in and true diner with 10 years of experience serving classic Calhoun GA Landmark.'
     }
   }
-  
-
   const company = companyData[companyName] || {
     name: companyName,
     industry: 'Not specified',
@@ -171,26 +472,21 @@ const CompanyProfile = () => {
     applicationType: 'form',
     businessSummary: 'Information not available',
     certifiedFields: [],
-    licenseContact: { license: 'N/A', phone: 'N/A', email: 'N/A' },
+    licenseContact: { address: 'N/A', city: 'N/A', zipCode: 'N/A', phone: 'N/A', email: 'N/A' },
     services: [],
     yearsInBusiness: 0,
     capabilityStatement: 'Information not available'
   };
 
-  const handleJobClick = (job) => {
-    if (company.applicationType === 'form') {
-      setSelectedJob(job.title);
-      setShowApplicationForm(true);
-    } else {
-      window.open(`https://${company.website}/careers`, '_blank');
-    }
+  const handleServiceClick = (service) => {
+    setSelectedService(service);
+    setShowServiceModal(true);
   };
 
-  const handleSubmitApplication = (e) => {
-    e.preventDefault();
-    // Handle form submission here
-    alert('Application submitted successfully!');
-    setShowApplicationForm(false);
+
+  const handleJobClick = (job) => {
+    // Show contact information for job inquiry
+    alert(`Contact ${company.name} for more information about the ${job.title} position:\n\nPhone: ${company.licenseContact.phone}\nEmail: ${company.licenseContact.email}`);
   };
 
   return (
@@ -198,8 +494,13 @@ const CompanyProfile = () => {
       <Header />
       <div className="company-profile-container">
         <div className="company-header">
-          <h1 className="company-name">{company.name}</h1>
-          <p className="company-industry">{company.industry}</p>
+          <div className="company-logo">
+            <img src={images[`${company.name.toLowerCase().replace(/[^a-z0-9]/g, '')}.svg`] || images['default-company.svg']} alt={`${company.name} Logo`} className="company-logo-img" />
+          </div>
+          <div className="company-info">
+            <h1 className="company-name">{company.name}</h1>
+            <p className="company-industry">{company.industry}</p>
+          </div>
         </div>
         
         <div className="company-details">
@@ -235,15 +536,24 @@ const CompanyProfile = () => {
           <h3>Services</h3>
           <div className="services-grid">
             {company.services.map((service, index) => (
-              <div key={index} className="service-item">{service}</div>
+              <div 
+                key={index} 
+                className="service-item clickable"
+                onClick={() => handleServiceClick(service)}
+              >
+                {service}
+              </div>
             ))}
           </div>
         </div>
 
         <div className="company-section">
-          <h3>License & Contact Information</h3>
+          <h3>Address & Contact Information</h3>
           <div className="contact-info">
-            <div><strong>License:</strong> {company.licenseContact.license}</div>
+            <div><strong>Address:</strong> {company.licenseContact.address}</div>
+            <div><strong>City:</strong> {company.licenseContact.city}</div>
+            <div><strong>State:</strong> {company.licenseContact.state}</div>
+            <div><strong>Zip Code:</strong> {company.licenseContact.zipCode}</div>
             <div><strong>Phone:</strong> {company.licenseContact.phone}</div>
             <div><strong>Email:</strong> {company.licenseContact.email}</div>
           </div>
@@ -254,7 +564,7 @@ const CompanyProfile = () => {
           <p>{company.capabilityStatement}</p>
         </div>
 
-        {company.jobs.length > 0 && (
+        {company.jobs.length > 0 && company.jobs[0].title !== 'No Jobs Posted' && (
           <div className="company-jobs">
             <h3>Job Listings</h3>
             <div className="jobs-list">
@@ -263,7 +573,7 @@ const CompanyProfile = () => {
                   <div className="job-header" onClick={() => handleJobClick(job)}>
                     <h4>{job.title}</h4>
                     <span className="apply-hint">
-                      {company.applicationType === 'form' ? 'Click to apply' : 'Apply on website'}
+                      Contact for more info
                     </span>
                   </div>
                   <p className="job-description">{job.description}</p>
@@ -273,26 +583,15 @@ const CompanyProfile = () => {
           </div>
         )}
 
-        {showApplicationForm && (
-          <div className="application-modal">
-            <div className="modal-content">
-              <h3>Apply for {selectedJob}</h3>
-              <form onSubmit={handleSubmitApplication}>
-                <input type="text" placeholder="Full Name" required />
-                <input type="email" placeholder="Email" required />
-                <input type="tel" placeholder="Phone" required />
-                <textarea placeholder="Cover Letter" rows="4" required></textarea>
-                <input type="file" accept=".pdf,.doc,.docx" />
-                <div className="form-buttons">
-                  <button type="submit">Submit Application</button>
-                  <button type="button" onClick={() => setShowApplicationForm(false)}>Cancel</button>
-                </div>
-              </form>
-            </div>
-          </div>
+        {showServiceModal && (
+          <ServiceProvidersModal 
+            service={selectedService}
+            companies={[{name: company.name, location: company.location, phone: company.licenseContact.phone, email: company.licenseContact.email}]}
+            onClose={() => setShowServiceModal(false)}
+          />
         )}
       </div>
-      <Footer />
+       <Footer />
     </div>
   );
 };

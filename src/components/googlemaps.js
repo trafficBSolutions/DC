@@ -1,89 +1,87 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { GOOGLE_MAPS_API_KEY } from '../constants/constant';
 
-const MapComponent = ({ onPlanMarkerAdd }) => {
-  const [planmap, setPlanMap] = useState(null);
-  const [planmarker, setPlanMarker] = useState(null);
-  const mapPlanContainerRef = useRef(null);
-  
+const MapComponent = () => {
+  const [map, setMap] = useState(null);
+  const mapContainerRef = useRef(null);
+  const [geocoder, setGeocoder] = useState(null);
+
+  const businessAddress = "723 N. Wall St, Calhoun, GA 30701";
+
+  // Initialize the Google Map
+  const initMap = () => {
+    if (mapContainerRef.current) {
+      const googleMap = new window.google.maps.Map(mapContainerRef.current, {
+        center: { lat: 34.5028, lng: -84.9508 },
+        zoom: 15,
+        styles: [
+          {
+            featureType: 'landscape',
+            elementType: 'geometry',
+            stylers: [{ color: '#f6ebce' }],
+          },
+          {
+            featureType: 'water',
+            elementType: 'geometry',
+            stylers: [{ color: '#83CCCE' }],
+          },
+        ],
+      });
+      setMap(googleMap);
+    }
+  };
+
+  // Load the Google Maps script and initialize the map
   useEffect(() => {
-    if (!window.google) {
+    if (!window.google || !window.google.maps) {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=geometry`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY }&libraries=geometry,places`;
       script.async = true;
-
-      script.onload = initPlanMap;
-
-      document.body.appendChild(script);
-
-      return () => {
-        document.body.removeChild(script);
+      script.onload = () => {
+        setGeocoder(new window.google.maps.Geocoder());
+        initMap();
       };
+      document.body.appendChild(script);
     } else {
-      initPlanMap();
+      setGeocoder(new window.google.maps.Geocoder());
+      initMap();
     }
   }, []);
 
+  // Geocode and place marker once both map and geocoder are ready
+  useEffect(() => {
+    if (map && geocoder) {
+      geocoder.geocode({ address: businessAddress }, (results, status) => {
+        if (status === "OK") {
+          const location = results[0].geometry.location;
+          map.setCenter(location);
+          map.setZoom(15);
 
-  const initPlanMap = () => {
-    const googleMap = new window.google.maps.Map(mapPlanContainerRef.current, {
-      center: { lat: 34.5116, lng: -84.9479 },
-      zoom: 8,
-      styles: [
-        {
-          featureType: 'landscape',
-          elementType: 'geometry',
-          stylers: [{ color: '#EFDEB0' }],
-        },
-        {
-          featureType: 'water',
-          elementType: 'geometry',
-          stylers: [{ color: '#83CCCE' }],
-        },
-      ],
-    });
-    setPlanMap(googleMap);
-  };
-
-
-
-  const handlePlanMarkerDrag = (newPlanMarker) => {
-    // You can handle marker drag here if needed
-  };
-
-  const handlePlanAddMarkerButtonClick = () => {
-    // No need to toggle isSubmitting here
-    if (!planmarker && planmap) {
-      const center = planmap.getCenter();
-      const newPlanMarker = new window.google.maps.Marker({
-        position: center,
-        map: planmap,
-        draggable: true,
-        title: "Job Site"
+          new window.google.maps.Marker({
+            position: location,
+            map,
+            title: "Material WorX\n" + results[0].formatted_address,
+            label: {
+              text: "Material WorX",
+              color: "black",
+              fontSize: "16px",
+              fontWeight: "bold",
+            },
+          });
+        } else {
+          console.error(`Geocode failed: ${status}`);
+        }
       });
-
-      newPlanMarker.addListener('dragend', () => {
-        handlePlanMarkerDrag(newPlanMarker);
-      });
-
-      // Notify parent component about marker position
-      onPlanMarkerAdd(center.lat(), center.lng());
-      setPlanMarker(newPlanMarker);
     }
-  };
+  }, [map, geocoder]);
 
   return (
     <div>
-      <div className="map-plan-container" ref={mapPlanContainerRef}></div>
-      <div className="map-plan-button">
-        <button 
-          type="reset"
-          className="btn btn-full add-plan-marker"
-          onClick={handlePlanAddMarkerButtonClick}
-        >
-          Add Marker 
-        </button>
-      </div>
+      <div
+        className="map-home-container"
+        ref={mapContainerRef}
+        style={{ width: '100%', height: '439px', overflow: 'visible' }}
+      ></div>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import MapComponent from "../components/googlemaps";
 import '../css/header.css';
 import '../css/home.css';
 import '../css/footer.css';
+import '../css/map.css';
 import images from "../utils/images";
 const Home = () => {
   const navigate = useNavigate();
@@ -20,6 +21,10 @@ const Home = () => {
   const [showServiceModal, setShowServiceModal] = useState(false);
   const [currentService, setCurrentService] = useState('');
   const [serviceProviders, setServiceProviders] = useState([]);
+
+  const handleMarkerAdd = (lat, lng) => {
+    console.log('Marker added at:', lat, lng);
+  };
 
   // Sample data - replace with actual data from your API
   const serviceCategories = getCategorizedServiceTypes();
@@ -138,7 +143,7 @@ const Home = () => {
       </div>
       <div className="map-section">
         <h3 className="map-title">Our Reach</h3>
-        <MapComponent />
+        <MapComponent onPlanMarkerAdd={handleMarkerAdd} />
       </div>
       {/*<AIMatchingDemo />
       

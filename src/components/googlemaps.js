@@ -24,15 +24,6 @@ const MapComponent = ({ onPlanMarkerAdd }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (planmap) {
-      const clickListener = planmap.addListener('click', handlePlanMapClick);
-      
-      return () => {
-        window.google.maps.event.removeListener(clickListener);
-      };
-    }
-  }, [planmap]);
 
   const initPlanMap = () => {
     const googleMap = new window.google.maps.Map(mapPlanContainerRef.current, {
@@ -54,29 +45,7 @@ const MapComponent = ({ onPlanMarkerAdd }) => {
     setPlanMap(googleMap);
   };
 
-  const handlePlanMapClick = (event) => {
-    console.log('Map clicked');
-    console.log('Map:', planmap);
-    console.log('Marker:', planmarker);
-    if (!planmarker && planmap) {
-      const newPlanMarker = new window.google.maps.Marker({
-        position: event.latLng,
-        map: planmap,
-        draggable: true,
-        title: "Job Site"
-      });
 
-      newPlanMarker.addListener('dragend', () => {
-        handlePlanMarkerDrag(newPlanMarker);
-      });
-
-      setPlanMarker(newPlanMarker);
-      console.log('Marker added:', newPlanMarker);
-
-      // Notify parent component about marker position
-      onPlanMarkerAdd(event.latLng.lat(), event.latLng.lng()); 
-    }
-  };
 
   const handlePlanMarkerDrag = (newPlanMarker) => {
     // You can handle marker drag here if needed

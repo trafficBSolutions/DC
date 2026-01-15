@@ -5,6 +5,7 @@ import Footer from "../components/footers/homeFooter";
 //import AIMatchingDemo from "../components/AIMatchingDemo";
 import { getAllJobListings, getCompanyNames, getCategorizedServiceTypes, getCompaniesByService } from '../data/companyData';
 import ServiceProvidersModal from '../components/ServiceProvidersModal';
+import MapComponent from "../components/googlemaps";
 import '../css/header.css';
 import '../css/home.css';
 import '../css/footer.css';
@@ -135,7 +136,10 @@ const Home = () => {
           </div>
         )}
       </div>
-      
+      <div className="map-section">
+        <h3 className="map-title">Our Reach</h3>
+        <MapComponent />
+      </div>
       {/*<AIMatchingDemo />
       
       <div className="testimonials-section">

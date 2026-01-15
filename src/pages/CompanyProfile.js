@@ -100,16 +100,16 @@ const CompanyProfile = () => {
       name: 'CR Coatings LLC',
       industry: 'Construction & Infrastructure',
       location: 'Calhoun, GA',
-      employees: '50-100',
+      employees: '10',
       description: 'CR Coatings LLC is a leading provider of parking lot striping and pavement marking services for commercial and retail properties.',
-      website: 'www.crcoatingsllc.com',
+      website: 'www.gordoncountychamber.com/list/member/c-r-coatings-llc-10484',
       jobs: [
         { title: 'Striping Technician', description: 'Apply parking lot striping and pavement markings. Requires experience with striping equipment.' },
         { title: 'Project Supervisor', description: 'Oversee striping projects and manage teams. Strong leadership skills required.' },
         { title: 'Equipment Operator', description: 'Operate striping machines and maintain equipment. Attention to detail required.' }
       ],
       applicationType: 'external',
-      businessSummary: 'With over 20 years of experience, CR Coatings LLC specializes in providing high-quality parking lot striping and pavement marking services for retail centers, office complexes, and commercial properties.',
+      businessSummary: 'With over 5 years of experience, CR Coatings LLC specializes in providing high-quality parking lot striping and pavement marking services for retail centers, office complexes, and commercial properties.',
       certifiedFields: ['Parking Lot Striping', 'Line Painting', 'Pavement Marking', 'Handicap Symbols'],
       licenseContact: {
         address: 'P O Box 505',
@@ -117,11 +117,11 @@ const CompanyProfile = () => {
         state: 'GA',
         zipCode: '30703',
         phone: '(770) 548-4325',
-        email: 'info@crcoatingsllc.com'
+        email: 'countylinepowdercoat@gmail.com'
       },
       services: ['Parking Lot Striping', 'Line Painting', 'Pavement Marking', 'Handicap Symbols', 'Fire Lane Marking'],
-      yearsInBusiness: 20,
-      capabilityStatement: 'CR Coatings LLC is a certified provider of parking lot striping and pavement marking services with over 20 years of industry experience. We are committed to delivering high-quality striping solutions that meet ADA compliance and safety standards.'
+      yearsInBusiness: 7,
+      capabilityStatement: 'CR Coatings LLC is a certified provider of parking lot striping and pavement marking services with over 5 years of industry experience. We are committed to delivering high-quality striping solutions that meet ADA compliance and safety standards.'
     },
     'CSTE Inc.': {
       name: 'CSTE Inc.',
@@ -156,7 +156,7 @@ const CompanyProfile = () => {
       location: 'Calhoun, GA',
       employees: '500+',
       description: 'Fair`s Auto Service is a local automotive repair shop providing comprehensive vehicle maintenance and repair services.',
-      website: 'www.fairsautoservice.com',
+      website: 'www.gordoncountychamber.com/list/member/fair-s-auto-service-repair-llc-6252',
       jobs: [
         { title: 'No Jobs Posted', description: 'Not available' },
       ],
@@ -197,7 +197,7 @@ const CompanyProfile = () => {
       },
       services: ['Community Outreach', 'Volunteer Management', 'Event Planning', 'Religious Education'],
       yearsInBusiness: 70,
-      capabilityStatement: 'Certified religious organization with 5 years of experience in community service and spiritual growth. We are committed to providing a safe and welcoming environment for all members.'
+      capabilityStatement: 'At First Baptist Church of Calhoun, we are committed to loving God, loving people, and making disciples. We strive to create a welcoming environment where everyone can grow in their faith and serve others in the community.'
     },
     'Good Samaritans of Gordon County, Inc.': {
       name: 'Good Samaritans of Gordon County, Inc.',
@@ -236,7 +236,7 @@ const CompanyProfile = () => {
       ],
       applicationType: 'form',
       businessSummary: 'Landscape Creations is a leading provider of landscape design and construction services.',
-      certifiedFields: ['Landscape Design', 'Construction', 'Hardscaping', 'Planting & Irrigation'],
+      certifiedFields: ['Landscape Design', 'Erosion Control', 'Construction', 'Hardscaping', 'Planting & Irrigation'],
       licenseContact: {
         address: '1400 US-41',
         city: 'Calhoun',
@@ -245,7 +245,7 @@ const CompanyProfile = () => {
         phone: '(706) 280-3130',
         email: 'wadavis21@outlook.com'
       },
-      services: ['Landscape Design', 'Construction', 'Hardscaping', 'Planting & Irrigation'],
+      services: ['Landscape Design', 'Erosion Control', 'Construction', 'Hardscaping', 'Planting & Irrigation'],
       yearsInBusiness: 20,  
       capabilityStatement: 'Landscape Creations is a leading provider of landscape design and construction services.'
     },
@@ -290,7 +290,7 @@ const CompanyProfile = () => {
       ],
       applicationType: 'external',
       businessSummary: 'Muse Land Services LLC is a trusted provider of land development services, specializing in grading, site preparation, drainage solutions, and land clearing for both commercial and residential projects.',
-      certifiedFields: ['Grading and Site Prep', 'Drainage Systems', 'Land Clearing', 'Erosion Control'],
+      certifiedFields: ['Grading and Site Prep', 'Drainage Systems', 'Dump Truck Services', 'Utility Location', 'Land Clearing', 'Erosion Control'],
       licenseContact: {
         address: '203 Holbrook Rd NW',
         city: 'Calhoun',
@@ -307,26 +307,26 @@ const CompanyProfile = () => {
       name: 'Peel Aesthetics',
       industry: 'Health & Wellness',
       location: 'Calhoun, GA',
-      employees: '10-50',
-      description: 'Peel Aesthetics is a medical spa offering advanced skincare treatments and aesthetic services.',
+      employees: '3',
+      description: 'Peel Aesthetics is a medical spa offering skincare and injectable treatments to enhance natural beauty.',
       website: 'www.peelaesthetics.com',
       jobs: [
         { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'form',
       businessSummary: 'Peel Aesthetics is a medical spa offering advanced skincare treatments and aesthetic services.',
-      certifiedFields: ['Skincare', 'Aesthetics', 'Medical Spa', 'Wellness Services'],
+      certifiedFields: ['Skincare', 'Aesthetics', 'Acne Treatments', 'Injectables'],
       licenseContact: {
         address: '668 Red Bud Rd NE',
         city: 'Calhoun',
         state: 'GA',
         zipCode: '30701',
         phone: '(770) 548-3318',
-        email: 'glowaestheticsllc@gmail.com'
+        email: 'peelaestheticsllc@gmail.com'
       },
-      services: ['Skincare', 'Aesthetics', 'Medical Spa', 'Wellness Services'],
+      services: ['Acne Bootcamp', 'Hydrafacial', 'SkinPen Microneedling', 'Facials', 'Chemical Peels', 'Injectables'],
       yearsInBusiness: 10,
-      capabilityStatement: 'Peel Aesthetics is a certified medical spa with extensive experience in advanced skincare treatments and aesthetic services.'
+      capabilityStatement: 'Peel Aesthetics is a certified medical spa with over 10 years of experience in providing advanced skincare treatments and aesthetic services to enhance natural beauty. We offer a wide range of skincare and injectable treatments to address various skin concerns.'
     },
     'Riverview Baptist Church': {
       name: 'Riverview Baptist Church',
@@ -351,7 +351,7 @@ const CompanyProfile = () => {
       },
       services: ['Community Outreach', 'Volunteer Management', 'Event Planning', 'Religious Education'],
       yearsInBusiness: 70,
-      capabilityStatement: 'Certified religious organization with 5 years of experience in community service and spiritual growth. We are committed to providing a safe and welcoming environment for all members.'
+      capabilityStatement: 'We are a family of believers committed to loving God, loving people, and making disciples. At Riverview Baptist Church, we strive to create a welcoming environment where everyone can grow in their faith and serve others in the community.'
     },
     'Traffic & Barrier Solutions, LLC': {
       name: 'Traffic & Barrier Solutions, LLC',
@@ -406,7 +406,7 @@ const CompanyProfile = () => {
       },
       services: ['Community Outreach', 'Volunteer Management', 'Event Planning', 'Religious Education'],
       yearsInBusiness: 5,
-      capabilityStatement: 'Certified religious organization with 5 years of experience in community service and spiritual growth. We are committed to providing a safe and welcoming environment for all members.'
+      capabilityStatement: 'At Trinity Baptist Church, we are committed to connecting with believers, serve others with the love of God, and share our faith. We are a vibrant community of believers dedicated to making a positive impact in the world.'
     },
     'X4 Fitness Calhoun': {
       name: 'X4 Fitness Calhoun',

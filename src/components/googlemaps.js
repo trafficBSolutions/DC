@@ -46,9 +46,9 @@ const MapComponent = () => {
 
       const infoWindow = new window.google.maps.InfoWindow({
         content: `
-          <div style="padding: 15px; font-family: Arial, sans-serif; text-align: center;">
+          <div style="padding: 15px; font-family: Arial, sans-serif; text-align: center; max-width: 250px;">
             <img src="${images[`${company.name.toLowerCase().replace(/[^a-z0-9]/g, '')}.svg`] || ''}" 
-                 style="height: 60px; margin-bottom: 10px; object-fit: contain;" 
+                 style="max-height: 60px; max-width: 100%; margin-bottom: 10px; object-fit: contain;" 
                  onerror="this.style.display='none'" />
             <h3 style="margin: 0 0 8px 0; color: #1a1a2e; font-size: 16px;">${company.name}</h3>
             <p style="margin: 0 0 8px 0; color: #666; font-size: 14px;">${company.address}</p>

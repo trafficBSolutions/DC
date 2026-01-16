@@ -23,9 +23,7 @@ const CompanyProfile = () => {
       description: 'Calhoun Truck Repair is a full-service truck repair and maintenance shop serving commercial vehicles.',
       website: 'www.facebook.com/pages/calhoun-truck-repair/134368803279999',
       jobs: [
-        { title: 'Mechanic', description: 'Diagnose and repair mechanical issues on commercial vehicles.' },
-        { title: 'Electrical Technician', description: 'Repair and maintain electrical systems on commercial vehicles.' },
-        { title: 'Tire Specialist', description: 'Replace and repair tires on commercial vehicles.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'form',
       businessSummary: 'Full-service truck repair and maintenance shop serving commercial vehicles.',
@@ -46,13 +44,11 @@ const CompanyProfile = () => {
       name: 'CrossFit Calhoun',
       industry: 'Fitness & Wellness',
       location: 'Calhoun, GA',
-      employees: '10-50',
+      employees: '3',
       description: 'CrossFit affiliate gym focused on functional fitness and community building.',
       website: 'www.crossfitcalhoun.com',
       jobs: [
-        { title: 'CrossFit Instructor', description: 'Lead group fitness classes and provide coaching. Requires CrossFit Level 1 certification.' },
-        { title: 'Fitness Coach', description: 'Provide one-on-one training sessions and nutrition guidance. Requires personal training certification.' },
-        { title: 'Front Desk Staff', description: 'Manage member check-ins and gym operations. Customer service experience preferred.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'form',
       businessSummary: 'Community-focused CrossFit affiliate dedicated to helping members achieve their fitness goals through high-intensity workouts and supportive environment.',
@@ -66,8 +62,8 @@ const CompanyProfile = () => {
         email: 'No Email'
       },
       services: ['Group Fitness Classes', 'Personal Training', 'Nutrition Coaching', 'Workout Plans', 'Community Events'],
-      yearsInBusiness: 4,
-      capabilityStatement: 'Certified CrossFit affiliate with 4 years of experience in functional fitness training. Specialized in creating supportive community environments for all fitness levels.'
+      yearsInBusiness: 14,
+      capabilityStatement: 'Certified CrossFit affiliate with over 10 years of experience in functional fitness training. Specialized in creating supportive community environments for all fitness levels.'
     },
     'CrossFit Trackside': {
       name: 'CrossFit Trackside',
@@ -77,9 +73,7 @@ const CompanyProfile = () => {
       description: 'CrossFit affiliate gym focused on functional fitness and community building.',
       website: 'www.cftrackside.com',
       jobs: [
-        { title: 'CrossFit Instructor', description: 'Lead group fitness classes and provide coaching. Requires CrossFit Level 1 certification.' },
-        { title: 'Fitness Coach', description: 'Provide one-on-one training sessions and nutrition guidance. Requires personal training certification.' },
-        { title: 'Front Desk Staff', description: 'Manage member check-ins and gym operations. Customer service experience preferred.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'form',
       businessSummary: 'Community-focused CrossFit affiliate dedicated to helping members achieve their fitness goals through high-intensity workouts and supportive environment.',
@@ -104,18 +98,16 @@ const CompanyProfile = () => {
       description: 'CR Coatings LLC is a leading provider of parking lot striping and pavement marking services for commercial and retail properties.',
       website: 'www.gordoncountychamber.com/list/member/c-r-coatings-llc-10484',
       jobs: [
-        { title: 'Striping Technician', description: 'Apply parking lot striping and pavement markings. Requires experience with striping equipment.' },
-        { title: 'Project Supervisor', description: 'Oversee striping projects and manage teams. Strong leadership skills required.' },
-        { title: 'Equipment Operator', description: 'Operate striping machines and maintain equipment. Attention to detail required.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'external',
       businessSummary: 'With over 5 years of experience, CR Coatings LLC specializes in providing high-quality parking lot striping and pavement marking services for retail centers, office complexes, and commercial properties.',
       certifiedFields: ['Parking Lot Striping', 'Line Painting', 'Pavement Marking', 'Handicap Symbols'],
       licenseContact: {
-        address: 'P O Box 505',
+        address: '1706 Red Bud Rd NE',
         city: 'Calhoun',
         state: 'GA',
-        zipCode: '30703',
+        zipCode: '30701',
         phone: '(770) 548-4325',
         email: 'countylinepowdercoat@gmail.com'
       },
@@ -131,9 +123,7 @@ const CompanyProfile = () => {
       description: 'CSTE Inc. is a comprehensive construction and logistics company specializing in construction services, hauling, and material management solutions.',
       website: 'www.csteinc.com',
       jobs: [
-        { title: 'Construction Worker', description: 'Perform construction tasks including excavation and site preparation. Construction experience required.' },
-        { title: 'Truck Driver', description: 'Drive trucks for hauling and material management. CDL required with clean driving record.' },
-        { title: 'Logistics Coordinator', description: 'Coordinate logistics operations and supply chain management. Strong organizational skills required.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'external',
       businessSummary: 'CSTE Inc. brings your construction vision to life with skilled construction teams equipped to handle projects from excavation and site preparation to structural work. Our fleet of state-of-the-art vehicles provides hauling and material management services, while our logistics expertise ensures comprehensive supply chain solutions.',
@@ -257,9 +247,7 @@ const CompanyProfile = () => {
       description: 'Morning Pointe Senior Living of Calhoun offers assisted living and memory care services in a comfortable, one-story, home-like community.',
       website: 'www.morningpointe.com',
       jobs: [
-        { title: 'Certified Nursing Assistant', description: 'Provide compassionate care to residents in assisted living and memory care. CNA certification required.' },
-        { title: 'Activities Coordinator', description: 'Plan and lead engaging activities for residents. Experience with seniors preferred.' },
-        { title: 'Dietary Aide', description: 'Assist with meal preparation and service. Food service experience helpful.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'form',
       businessSummary: 'At Morning Pointe Senior Living of Calhoun, we offer the ability for loved ones to receive just the right amount of care within a city they have grown to love. We have designed a comfortable, one-story, home-like assisted living and memory care community that gives our residents a better quality of life. Owned and operated by the same two founders for over 25 years.',
@@ -284,9 +272,7 @@ const CompanyProfile = () => {
       description: 'Muse Land Services LLC provides comprehensive land development services including grading, site preparation, drainage, and land clearing for commercial and residential projects.',
       website: 'www.muselandservices.org',
       jobs: [
-        { title: 'Heavy Equipment Operator', description: 'Operate bulldozers, excavators, and grading equipment. Requires heavy equipment certification and experience.' },
-        { title: 'Dump Truck Driver', description: 'Drive dump trucks for material hauling and site work. CDL required with clean driving record.' },
-        { title: 'Site Foreman', description: 'Supervise land development projects and manage crews. Strong leadership and construction experience required.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'external',
       businessSummary: 'Muse Land Services LLC is a trusted provider of land development services, specializing in grading, site preparation, drainage solutions, and land clearing for both commercial and residential projects.',
@@ -361,9 +347,7 @@ const CompanyProfile = () => {
       description: 'Leading provider of traffic control and barrier solutions for construction and infrastructure projects.',
       website: 'www.trafficbarriersolutions.com',
       jobs: [
-        { title: 'Traffic Control Specialist', description: 'Manage traffic flow and safety protocols on construction sites. Requires certification and 2+ years experience.' },
-        { title: 'Traffic Control Team Member', description: 'Support traffic control operations and maintain safety equipment. Entry-level position with training provided.' },
-        { title: 'Driver', description: 'Transport equipment and materials to job sites. CDL required with clean driving record.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'form',
       businessSummary: 'Established leader in traffic management solutions serving the Southeast region with comprehensive safety services.',
@@ -388,9 +372,7 @@ const CompanyProfile = () => {
       description: 'Trinity Baptist Church is a local religious organization dedicated to community service and spiritual growth.',
       website: 'www.trinitycalhoun.com',
       jobs: [
-        { title: 'Community Outreach Coordinator', description: 'Engage with the community and promote church events. No experience required.' },
-        { title: 'Volunteer Coordinator', description: 'Manage and coordinate volunteer programs. No experience required.' },
-        { title: 'Event Coordinator', description: 'Plan and execute church events. No experience required.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
 
       applicationType: 'form',
@@ -416,9 +398,7 @@ const CompanyProfile = () => {
       description: 'X4 Fitness Calhoun is a local fitness center offering personalized training and group classes.',
       website: 'www.x4calhoun.com',
       jobs: [
-        { title: 'Fitness Instructor', description: 'Lead group fitness classes and provide coaching. Requires fitness certification.' },
-        { title: 'Personal Trainer', description: 'Provide one-on-one training sessions. Requires personal training certification.' },
-        { title: 'Front Desk Staff', description: 'Manage member check-ins and gym operations. Customer service experience preferred.' }
+        { title: 'No Jobs Posted', description: 'Not available' }
       ],
       applicationType: 'form',
       businessSummary: 'Local fitness center focused on personalized training and community building.',

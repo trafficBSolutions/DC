@@ -826,3 +826,20 @@ body{
   color: var(--dc-text);
   border: 1px solid var(--dc-stroke);
 }
+@media screen and (min-width: 320px) and (max-width: 640px) and (orientation: portrait) {
+  .home-container{
+    padding: 160px 0 90px;
+    
+  }
+  .home-info-section{
+    padding: 1rem 0.75rem;
+    max-width: 375px;
+  }
+  .logo-container img{
+    max-width: 100%;
+  }
+  .logo-subtitle {
+    font-size: 0.85rem;
+  }
+}
+  

@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { Home } from './pages';
+import { Home, NotFound } from './pages';
 import CompanyProfile from './pages/CompanyProfile';
 import { Toaster } from 'react-hot-toast';
 
@@ -11,6 +11,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/company/:companyName" element={<CompanyProfile/>}/>
+      <Route path="*" element={<NotFound/>}/>
     </Routes>
     </>
   );

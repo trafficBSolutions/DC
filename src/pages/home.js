@@ -92,7 +92,7 @@ const Home = () => {
       </div>
       <div className="home-info-section">
         <h2 className="info-headline">Connecting Skilled Professionals with Top Employers</h2>
-        <p className="info-paragraph">At Direct Connection, we specialize in linking talented individuals with leading companies across various industries. Our mission is to create meaningful connections that drive career growth and business success. Whether you're a job seeker looking for your next opportunity or an employer seeking top talent, Direct Connection is your trusted partner in the hiring process.</p>
+        <p className="info-paragraph">Our community is full of talented people who have perfected their craft—we’re simply here to put a face and a name to their work and make those local connections easier. This site helps county residents find local job opportunities and discover trusted businesses that offer the services they need but may not know where to find. </p>
       </div>
       <div className="search-container">
         <div className="category-buttons">

@@ -85,7 +85,7 @@ const Home = () => {
         </video>
         <div className="logo-container">
           <div className="logo-container-inner">
-          <img src={images["connection.svg"]} alt="Direct Connection Logo" className="home-logo" />
+          <img src={images["Direction Connection Favicon.svg"]} alt="Direct Connection Logo" className="home-logo" />
           <p className="logo-subtitle">Bridging the Gap Between Talent and Opportunity</p>
           </div>
         </div>

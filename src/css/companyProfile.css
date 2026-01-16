@@ -393,7 +393,14 @@
     gap: 1rem;
     text-align: center;
   }
+  .company-logo{
+    width: 100%;
+    max-width: 200px;
+  }
   .company-logo-img{
-    height: 80px;
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
   }
 }

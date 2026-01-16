@@ -385,3 +385,15 @@
 .company-details a:visited{
   color: rgba(37,211,255,.95);
 }
+
+@media screen and (min-width: 320px) and (max-width: 640px) and (orientation: portrait) {
+  .company-header{
+    flex-direction: column;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+    text-align: center;
+  }
+  .company-logo-img{
+    height: 80px;
+  }
+}

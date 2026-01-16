@@ -841,5 +841,9 @@ body{
   .logo-subtitle {
     font-size: 0.85rem;
   }
+  .home-video {
+    height: auto;
+    z-index: -1;
+  }
 }
   

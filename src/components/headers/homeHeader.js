@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoMenuOutline } from "react-icons/io5";
+import images from "../../utils/images";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
     const toggle = () => 
@@ -12,7 +13,7 @@ const Header = () => {
           </button>
           </div>
       <nav className={`header-nav-list ${isOpen ? 'active' : ''}`}>
-        <h1 className="header-title">Direct Connection</h1>
+        <img src={images["connection.svg"]} alt="Direct Connection Logo" className="header-logo" />
         </nav>
     </header>
   );

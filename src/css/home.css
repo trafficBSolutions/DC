@@ -119,7 +119,7 @@ body{
 .logo-container img{
   height: auto;
   width: 100%;
-  max-width: 900px;
+  max-width: 300px;
   filter: drop-shadow(0 22px 60px rgba(0,0,0,.6));
 }
 

@@ -181,6 +181,7 @@ const CompanyProfile = () => {
       licenseContact: {
         address: '411 College St',
         city: 'Calhoun',
+        state: 'GA',
         zipCode: '30701',
         phone: '(706) 629-7714',
         email: 'steven.waters@calhounfbc.org'

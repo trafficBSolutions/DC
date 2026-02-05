@@ -269,7 +269,7 @@ const CompanyProfile = () => {
       name: 'Muse Land Services LLC',
       industry: 'Construction & Infrastructure',
       location: 'Calhoun, GA',
-      employees: '50-100',
+      employees: '5',
       description: 'Muse Land Services LLC provides comprehensive land development services including grading, site preparation, drainage, and land clearing for commercial and residential projects.',
       website: 'www.muselandservices.org',
       jobs: [
@@ -287,7 +287,7 @@ const CompanyProfile = () => {
         email: 'museland@att.net'
       },
       services: ['Grading and Site Prep', 'Road and Parking', 'Drainage', 'Dump Truck Services', 'Utility Location', 'Land Clearing', 'Forestry Mulching', 'Erosion Control', 'Pond Construction'],
-      yearsInBusiness: 10,
+      yearsInBusiness: 35,
       capabilityStatement: 'Muse Land Services LLC is a certified land development company with extensive experience in commercial and residential site preparation, drainage solutions, and land clearing services. We pride ourselves on delivering reliable and efficient solutions for all your land development needs.'
     },
     'Peel Aesthetics': {

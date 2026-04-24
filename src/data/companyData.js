@@ -44,7 +44,8 @@ export const getCategorizedServiceTypes = () => {
     'Religious Organization': ['Community Outreach', 'Volunteer Management', 'Event Planning', 'Religious Education', 'Community Service', 'Support Programs'],
     'Senior Care': ['Assisted Living', 'Memory Care', 'Senior Healthcare', 'Family Support Services', 'Personalized Care Plans'],
     'Skincare & Aesthetics': ['Facials', 'Chemical Peels', 'Injectables', 'Acne Treatments', 'Hydrafacial', 'SkinPen Microneedling', 'Acne Bootcamp'],
-    'Meal Services': ['Drive-In Experience', 'True Diner', 'Entertainment']
+    'Meal Services': ['Drive-In Experience', 'True Diner', 'Entertainment'],
+    'Marine & Boating': ['Custom Boat Building', 'High Performance Boats', 'Marine Design']
   };
 };
 
@@ -67,7 +68,8 @@ export const getCompaniesByService = (serviceName) => {
     { name: 'Traffic & Barrier Solutions, LLC', services: ['Traffic Control Plans', 'Bollard/Wheel Stop Installation', 'Flagging Services', 'Equipment Rental', 'Safety Training'] },
     { name: 'Trinity Baptist Church', services: ['Community Outreach', 'Volunteer Management', 'Event Planning', 'Religious Education'] },
     { name: 'X4 Fitness Calhoun', services: ['Group Fitness Classes', 'Personal Training', 'Nutrition Coaching', 'Workout Plans'] },
-    { name: 'Yellow Jacket Drive-In', services: ['Drive-In Experience', 'True Diner', 'Entertainment'] }
+    { name: 'Yellow Jacket Drive-In', services: ['Drive-In Experience', 'True Diner', 'Entertainment'] },
+    { name: 'Statement Marine LLC', services: ['Custom Boat Building', 'High Performance Boats', 'Marine Design'] }
   ];
   
   return companies.filter(company => 
@@ -160,6 +162,7 @@ export const getCompanyNames = () => {
     'Traffic & Barrier Solutions, LLC',
     'Trinity Baptist Church',
     'X4 Fitness Calhoun',
-    'Yellow Jacket Drive-In'
+    'Yellow Jacket Drive-In',
+    'Statement Marine LLC'
   ].sort();
 };

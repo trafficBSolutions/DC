@@ -18,7 +18,8 @@ const companies = [
     { name: 'Traffic & Barrier Solutions, LLC', address: '721 N Wall St, Calhoun, GA 30701', lat: 34.5116333, lng: -84.9481199 },
     { name: 'Trinity Baptist Church', address: '1170 Rome Rd SW, Calhoun, GA 30701', lat: 34.4668436, lng: -84.9757552 },
     { name: 'X4 Fitness Calhoun', address: '120 N King St Suite 4, Calhoun, GA 30701', lat: 34.5035778, lng: -84.9544540 },
-    { name: 'Yellow Jacket Drive-In', address: '159 Drive-In Way, Calhoun, GA 30701', lat: 34.4977651, lng: -84.9633772 }
+    { name: 'Yellow Jacket Drive-In', address: '159 Drive-In Way, Calhoun, GA 30701', lat: 34.4977651, lng: -84.9633772 },
+    { name: 'Statement Marine LLC', address: '1979 Wild Acres Road, Largo, FL 33771', lat: 27.9053, lng: -82.7717 }
   ];
 const MapComponent = () => {
     const navigate = useNavigate();

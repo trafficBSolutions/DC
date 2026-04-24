@@ -181,7 +181,6 @@ const CompanyProfile = () => {
       licenseContact: {
         address: '411 College St',
         city: 'Calhoun',
-        state: 'GA',
         zipCode: '30701',
         phone: '(706) 629-7714',
         email: 'steven.waters@calhounfbc.org'
@@ -269,7 +268,7 @@ const CompanyProfile = () => {
       name: 'Muse Land Services LLC',
       industry: 'Construction & Infrastructure',
       location: 'Calhoun, GA',
-      employees: '5',
+      employees: '50-100',
       description: 'Muse Land Services LLC provides comprehensive land development services including grading, site preparation, drainage, and land clearing for commercial and residential projects.',
       website: 'www.muselandservices.org',
       jobs: [
@@ -287,7 +286,7 @@ const CompanyProfile = () => {
         email: 'museland@att.net'
       },
       services: ['Grading and Site Prep', 'Road and Parking', 'Drainage', 'Dump Truck Services', 'Utility Location', 'Land Clearing', 'Forestry Mulching', 'Erosion Control', 'Pond Construction'],
-      yearsInBusiness: 35,
+      yearsInBusiness: 10,
       capabilityStatement: 'Muse Land Services LLC is a certified land development company with extensive experience in commercial and residential site preparation, drainage solutions, and land clearing services. We pride ourselves on delivering reliable and efficient solutions for all your land development needs.'
     },
     'Peel Aesthetics': {
@@ -440,6 +439,31 @@ const CompanyProfile = () => {
       services: ['Drive-In Experience', 'True Diner', 'Entertainment'],
       yearsInBusiness: 10,
       capabilityStatement: 'Certified drive in and true diner with 10 years of experience serving classic Calhoun GA Landmark.'
+    },
+    'Statement Marine LLC': {
+      name: 'Statement Marine LLC',
+      industry: 'Marine & Boating',
+      location: 'Largo, FL',
+      employees: '50-100',
+      description: 'We don\'t just make boats, we make Statements — each of them a singular piece of high performance art that eloquently expresses its owner\'s unique vision.',
+      website: 'www.statementmarine.com',
+      jobs: [
+        { title: 'No Jobs Posted', description: 'Not available' }
+      ],
+      applicationType: 'form',
+      businessSummary: 'We don\'t just make boats, we make Statements — each of them a singular piece of high performance art that eloquently expresses its owner\'s unique vision. But we like to think they also communicate much more than that. We believe every Statement we make says something about what happens when technology, design, and craftsmanship intersect perfectly. Something about the value of individuality, of boldness, of a healthy disrespect for boundaries. Something about prioritizing personal relationships, especially at a time when so much work is going into making them obsolete. Something about always pushing, innovating tirelessly, never resting on your laurels. Something about keeping the throttles down.',
+      certifiedFields: ['Custom Boat Building', 'High Performance Boats', 'Marine Design'],
+      licenseContact: {
+        address: '1979 Wild Acres Road',
+        city: 'Largo',
+        state: 'Florida',
+        zipCode: '33771',
+        phone: '(727) 525-5235',
+        email: 'statementmarine@gmail.com'
+      },
+      services: ['Custom Boat Building', 'High Performance Boats', 'Marine Design'],
+      yearsInBusiness: 10,
+      capabilityStatement: 'What will you say with your Statement? We don\'t just make boats, we make Statements — each of them a singular piece of high performance art that eloquently expresses its owner\'s unique vision.'
     }
   }
   const company = companyData[companyName] || {

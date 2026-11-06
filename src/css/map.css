@@ -55,6 +55,20 @@
   border-radius: 50%;
 }
 
+.legend-marker.church {
+  background: #4a90d9;
+}
+
+.legend-marker.church::after {
+  content: '\271D';
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  font-size: 10px;
+  color: white;
+}
+
 .legend-note {
   font-size: 12px;
   color: #ccc;

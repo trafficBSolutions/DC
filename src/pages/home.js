@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../components/headers/homeHeader';
 import Footer from '../components/footers/homeFooter';
 import {
@@ -20,7 +20,6 @@ const normalize = (value) => String(value ?? '').toLocaleLowerCase().trim();
 const profilePath = (name) => `/company/${encodeURIComponent(name)}`;
 
 export default function Home() {
-  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [activeTab, setActiveTab] = useState('services');
   const [selectedCategory, setSelectedCategory] = useState(null);

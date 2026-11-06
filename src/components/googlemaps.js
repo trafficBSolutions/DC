@@ -92,6 +92,11 @@ const MapComponent = () => {
             ${company.pastor ? `<p style="margin: 0 0 4px 0; color: #444; font-size: 13px;"><strong>Pastor:</strong> ${company.pastor}</p>` : ''}
             <p style="margin: 0 0 4px 0; color: #666; font-size: 13px;">${company.address}</p>
             ${company.phone ? `<p style="margin: 0 0 8px 0; color: #666; font-size: 13px;"><strong>Phone:</strong> ${company.phone}</p>` : ''}
+            <button onclick="window.navigateToCompany('${company.name}')" 
+                    style="background: #4a90d9; color: white; border: none; padding: 8px 16px; 
+                           border-radius: 4px; cursor: pointer; font-size: 14px;">
+              View Profile
+            </button>
           </div>
         `;
       } else {

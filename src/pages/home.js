@@ -1,221 +1,216 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import Header from "../components/headers/homeHeader";
-import Footer from "../components/footers/homeFooter";
-//import AIMatchingDemo from "../components/AIMatchingDemo";
-import { getAllJobListings, getCompanyNames, getCategorizedServiceTypes, getCompaniesByService } from '../data/companyData';
+import React, { useMemo, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Header from '../components/headers/homeHeader';
+import Footer from '../components/footers/homeFooter';
+import {
+  getCompanyNames,
+  getCategorizedServiceTypes,
+  getCategoryMeta,
+  getCompaniesByService,
+} from '../data/companyData';
 import ServiceProvidersModal from '../components/ServiceProvidersModal';
-import MapComponent from "../components/googlemaps";
+import MapComponent from '../components/googlemaps';
+import images from '../utils/images';
 import '../css/header.css';
 import '../css/home.css';
 import '../css/footer.css';
 import '../css/map.css';
-import images from "../utils/images";
-const Home = () => {
+
+const normalize = (value) => String(value ?? '').toLocaleLowerCase().trim();
+const profilePath = (name) => `/company/${encodeURIComponent(name)}`;
+
+export default function Home() {
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedService, setSelectedService] = useState(null);
-  const [serviceResults, setServiceResults] = useState([]);
-  const [filteredResults, setFilteredResults] = useState([]);
-  const [showServiceModal, setShowServiceModal] = useState(false);
-  const [currentService, setCurrentService] = useState('');
-  const [serviceProviders, setServiceProviders] = useState([]);
+  const [query, setQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('services');
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [modalService, setModalService] = useState(null);
 
-  const handleMarkerAdd = (lat, lng) => {
-    console.log('Marker added at:', lat, lng);
+  const categories = useMemo(() => getCategorizedServiceTypes(), []);
+  const categoryMeta = useMemo(() => getCategoryMeta(), []);
+  const companies = useMemo(() => getCompanyNames(), []);
+
+  // Build a lightweight searchable index using the existing companyData helpers.
+  // A company can appear under several services and categories.
+  const directory = useMemo(() => {
+    const byName = new Map(companies.map((name) => [normalize(name), {
+      name, services: new Set(), categories: new Set(),
+    }]));
+
+    Object.entries(categories).forEach(([category, services]) => {
+      services.forEach((service) => {
+        (getCompaniesByService(service) || []).forEach((company) => {
+          const name = typeof company === 'string' ? company : company?.name;
+          if (!name) return;
+          const key = normalize(name);
+          if (!byName.has(key)) {
+            byName.set(key, { name, services: new Set(), categories: new Set() });
+          }
+          byName.get(key).services.add(service);
+          byName.get(key).categories.add(category);
+        });
+      });
+    });
+
+    return Array.from(byName.values()).map((company) => ({
+      ...company,
+      services: Array.from(company.services),
+      categories: Array.from(company.categories),
+    })).sort((a, b) => a.name.localeCompare(b.name));
+  }, [categories, companies]);
+
+  const categoryList = useMemo(() => Object.entries(categories).map(([name, services]) => ({
+    name,
+    services,
+    count: directory.filter((company) => company.categories.includes(name)).length,
+    icon: categoryMeta[name]?.icon || '🏢',
+    description: categoryMeta[name]?.description || 'Explore local businesses and services',
+  })), [categories, categoryMeta, directory]);
+
+  const term = normalize(query);
+  const matchingCompanies = useMemo(() => directory.filter((company) => {
+    const matchesQuery = !term || [company.name, ...company.services, ...company.categories]
+      .some((value) => normalize(value).includes(term));
+    const matchesCategory = !selectedCategory || company.categories.includes(selectedCategory);
+    return matchesQuery && matchesCategory;
+  }), [directory, term, selectedCategory]);
+
+  const visibleCategories = categoryList.filter((category) => !term || [
+    category.name, category.description, ...category.services,
+  ].some((value) => normalize(value).includes(term)));
+
+  const visibleServices = selectedCategory ? (categories[selectedCategory] || []).filter((service) =>
+    !term || normalize(service).includes(term) || (getCompaniesByService(service) || []).some((company) =>
+      normalize(typeof company === 'string' ? company : company?.name).includes(term)
+    )
+  ) : [];
+
+  const openService = (service) => setModalService(service);
+  const serviceProviders = modalService ? (getCompaniesByService(modalService) || []).map((company) => {
+    // Preserve actual data if the helper provides it; don't invent addresses or phone numbers.
+    if (typeof company === 'string') return { name: company };
+    return {
+      ...company,
+      location: company.location || [company.city, company.state].filter(Boolean).join(', ') || undefined,
+      phone: company.phone || company.licenseContact?.phone || undefined,
+      email: company.email || company.licenseContact?.email || undefined,
+    };
+  }) : [];
+
+  const switchTab = (tab) => {
+    setActiveTab(tab);
+    setSelectedCategory(null);
   };
 
-  // Sample data - replace with actual data from your API
-  const serviceCategories = getCategorizedServiceTypes();
-  const data = {
-    'Company List': getCompanyNames(),
-    'Job Listings': getAllJobListings().map(job => `${job.title} - ${job.company}`),
-    'Service Types': Object.keys(serviceCategories)
-  };
-
-  const handleCategoryClick = (category) => {
-    setActiveCategory(category);
-    setSearchTerm('');
-    setFilteredResults(data[category]);
-  };
-
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-    if (activeCategory && term) {
-      const filtered = data[activeCategory].filter(item => 
-        item.toLowerCase().includes(term.toLowerCase())
-      );
-      setFilteredResults(filtered);
-    } else if (activeCategory) {
-      setFilteredResults(data[activeCategory]);
-    }
-  };
-
-  const handleItemClick = (item) => {
-    if (activeCategory === 'Company List') {
-      navigate(`/company/${encodeURIComponent(item)}`);
-    } else if (activeCategory === 'Service Types') {
-      setSelectedService(item);
-      const services = serviceCategories[item] || [];
-      setServiceResults(services);
-    }
-  };
-
-  const handleServiceClick = (service) => {
-    const companies = getCompaniesByService(service).map(company => ({
-      name: company.name,
-      location: 'Calhoun, GA', // You can enhance this with actual location data
-      phone: 'Contact via profile',
-      email: 'Email via profile'
-    }));
-    setCurrentService(service);
-    setServiceProviders(companies);
-    setShowServiceModal(true);
-    setSelectedService(null);
-    setServiceResults([]);
-  };
+  const jumpToDirectory = () => document.getElementById('dc-directory')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <div>
+    <div className="dc-home">
       <Header />
-      <div className="home-container">
-        <video className="home-video" autoPlay loop muted playsInline>
-          <source type="video/mp4" src={images["connection.mp4"]} className="video" autoPlay loop muted />
-        </video>
-        <div className="logo-container">
-          <div className="logo-container-inner">
-          <img src={images["Direction Connection Favicon.svg"]} alt="Direct Connection Logo" className="home-logo" />
-          <p className="logo-subtitle">Bridging the Gap Between Talent and Opportunity</p>
-          </div>
-        </div>
-      </div>
-      <div className="home-info-section">
-        <h2 className="info-headline">Connecting Skilled Professionals with Top Employers</h2>
-        <p className="info-paragraph">Our community is full of talented people who have perfected their craft—we’re simply here to put a face and a name to their work and make those local connections easier. This site helps county residents find local job opportunities and discover trusted businesses that offer the services they need but may not know where to find. </p>
-      </div>
-      <div className="search-container">
-        <div className="category-buttons">
-          {Object.keys(data).map(category => (
-            <button 
-              key={category}
-              className={`category-btn ${activeCategory === category ? 'active' : ''}`}
-              onClick={() => handleCategoryClick(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-        {activeCategory && (
-          <div className="search-section">
-            <input 
-              className="search-input" 
-              type="text" 
-              placeholder={`Search ${activeCategory.toLowerCase()}...`}
-              value={searchTerm}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
-            <div className="results-container">
-              {selectedService ? (
-                serviceResults.map((service, index) => (
-                  <div 
-                    key={index} 
-                    className="result-item clickable"
-                    onClick={() => handleServiceClick(service)}
-                  >
-                    {service}
-                  </div>
-                ))
-              ) : (
-                filteredResults.map((item, index) => (
-                  <div 
-                    key={index} 
-                    className={`result-item ${activeCategory === 'Company List' || activeCategory === 'Service Types' ? 'clickable' : ''}`}
-                    onClick={() => handleItemClick(item)}
-                  >
-                    {item}
-                  </div>
-                ))
-              )}
+      <main>
+        <section className="dc-hero" aria-labelledby="dc-hero-title">
+          <video className="dc-hero-video" autoPlay loop muted playsInline aria-hidden="true">
+            <source src={images['connection.mp4']} type="video/mp4" />
+          </video>
+          <div className="dc-hero-content">
+            <div className="dc-eyebrow"><span className="dc-status-dot" /> Your Gordon County business connection</div>
+            <img className="dc-hero-logo" src={images['Direction Connection Favicon.svg']} alt="Direct Connection" />
+            <h1 id="dc-hero-title">Find local. <span>Connect directly.</span></h1>
+            <p>Find the people, businesses, and services your community has to offer — all in one place.</p>
+            <form className="dc-hero-search" onSubmit={(event) => { event.preventDefault(); setActiveTab('companies'); setSelectedCategory(null); jumpToDirectory(); }} role="search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+              <input aria-label="Search businesses and services" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try landscaping, auto repair, fitness..." />
+              <button type="submit">Find businesses <span aria-hidden="true">→</span></button>
+            </form>
+            <div className="dc-hero-actions">
+              <button type="button" onClick={() => { switchTab('services'); jumpToDirectory(); }}>Explore categories ↓</button>
+              <span>Serving Gordon County and surrounding communities</span>
             </div>
           </div>
-        )}
-      </div>
-      <div className="map-section">
-        <h3 className="map-title">Our Reach</h3>
-        <MapComponent onPlanMarkerAdd={handleMarkerAdd} />
-      </div>
-      {/*<AIMatchingDemo />
-      
-      <div className="testimonials-section">
-        <h3 className="section-title">Success Stories</h3>
-        <div className="testimonials-grid">
-          <div className="testimonial-card">
-            <div className="quote">"Direct Connection found me the perfect role in just 2 weeks. Their AI matching is incredible!"</div>
-            <div className="author">- Sarah M., Software Engineer</div>
-          </div>
-          <div className="testimonial-card">
-            <div className="quote">"We've hired 15 top candidates through Direct Connection. Game changer for our recruiting."</div>
-            <div className="author">- Mike R., HR Director</div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="cta-section">
-        <h3 className="cta-title">Ready to Connect?</h3>
-        <p className="cta-subtitle">Join thousands of professionals finding their perfect match</p>
-        <div className="cta-buttons">
-          <button className="cta-btn primary">Find Jobs</button>
-          <button className="cta-btn secondary">Post a Job</button>
-        </div>
-      </div>
-      
-      <div className="stats-section">
-        <div className="stat-item">
-          <div className="stat-number">500+</div>
-          <div className="stat-label">Companies Connected</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-number">10K+</div>
-          <div className="stat-label">Jobs Filled</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-number">95%</div>
-          <div className="stat-label">Success Rate</div>
-        </div>
-      </div>
+        </section>
 
-      <div className="features-section">
-        <h3 className="features-title">Why Choose Direct Connection</h3>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon">🎯</div>
-            <h4>Targeted Matching</h4>
-            <p>AI-powered algorithms match candidates with perfect-fit opportunities</p>
+        <section className="dc-intro" aria-label="About Direct Connection">
+          <div><span className="dc-section-kicker">DISCOVER WHAT'S LOCAL</span><h2>Your community, one connection away.</h2></div>
+          <p>From home improvement and landscaping to fitness, restaurants, and specialty services, discover businesses and connect with them directly.</p>
+        </section>
+
+        <section className="dc-directory" id="dc-directory" aria-labelledby="dc-directory-heading">
+          <div className="dc-section-heading">
+            <div><span className="dc-section-kicker">LOCAL DIRECTORY</span><h2 id="dc-directory-heading">Find what you're looking for</h2><p>Browse by service or explore our local business directory.</p></div>
+            <div className="dc-directory-total">{directory.length} businesses in the directory</div>
           </div>
-          <div className="feature-card">
-            <div className="feature-icon">⚡</div>
-            <h4>Fast Placement</h4>
-            <p>Average placement time of 2 weeks with our streamlined process</p>
+          <div className="dc-directory-toolbar">
+            <div className="dc-tabs" role="group" aria-label="Directory view">
+              <button type="button" className={activeTab === 'services' ? 'is-active' : ''} aria-pressed={activeTab === 'services'} onClick={() => switchTab('services')}>Browse services</button>
+              <button type="button" className={activeTab === 'companies' ? 'is-active' : ''} aria-pressed={activeTab === 'companies'} onClick={() => switchTab('companies')}>All businesses</button>
+            </div>
+            <div className="dc-filter-search">
+              <span aria-hidden="true">⌕</span>
+              <input aria-label="Filter directory" placeholder="Search names or services" value={query} onChange={(event) => setQuery(event.target.value)} />
+              {query && <button type="button" aria-label="Clear search" onClick={() => setQuery('')}>×</button>}
+            </div>
           </div>
-          <div className="feature-card">
-            <div className="feature-icon">🛡️</div>
-            <h4>Verified Companies</h4>
-            <p>All partner companies are thoroughly vetted and certified</p>
+
+          {activeTab === 'services' && !selectedCategory && (
+            <div className="dc-category-grid">
+              {visibleCategories.map((category) => (
+                <button type="button" className="dc-category-card" key={category.name} onClick={() => { setSelectedCategory(category.name); setQuery(''); }}>
+                  <span className="dc-category-icon" aria-hidden="true">{category.icon}</span>
+                  <strong>{category.name}</strong>
+                  <span className="dc-category-description">{category.description}</span>
+                  <span className="dc-category-bottom">{category.services.length} services · {category.count} businesses <b aria-hidden="true">↗</b></span>
+                </button>
+              ))}
+              {visibleCategories.length === 0 && <div className="dc-empty">No categories match your search. Try the All businesses tab.</div>}
+            </div>
+          )}
+
+          {activeTab === 'services' && selectedCategory && (
+            <div className="dc-service-panel">
+              <button className="dc-back" type="button" onClick={() => { setSelectedCategory(null); setQuery(''); }}>← All categories</button>
+              <div className="dc-service-heading"><span aria-hidden="true">{categoryMeta[selectedCategory]?.icon || '🏢'}</span><div><h3>{selectedCategory}</h3><p>Choose a service to see matching providers.</p></div></div>
+              <div className="dc-service-grid">
+                {visibleServices.map((service) => {
+                  const count = (getCompaniesByService(service) || []).length;
+                  return <button type="button" key={service} className="dc-service-item" onClick={() => openService(service)}><span>{service}</span><small>{count} {count === 1 ? 'provider' : 'providers'}</small><b aria-hidden="true">→</b></button>;
+                })}
+              </div>
+              {visibleServices.length === 0 && <div className="dc-empty">No services match that search.</div>}
+            </div>
+          )}
+
+          {activeTab === 'companies' && (
+            <div className="dc-companies-panel">
+              <div className="dc-results-count">Showing {matchingCompanies.length} {matchingCompanies.length === 1 ? 'business' : 'businesses'}</div>
+              <div className="dc-business-grid">
+                {matchingCompanies.map((company) => (
+                  <Link to={profilePath(company.name)} key={company.name} className="dc-business-card">
+                    <div className="dc-business-avatar" aria-hidden="true">{company.name.charAt(0).toUpperCase()}</div>
+                    <div className="dc-business-details"><h3>{company.name}</h3><p>{company.categories.join(' · ') || 'Local business'}</p><div className="dc-business-tags">{company.services.slice(0, 3).map((service) => <span key={service}>{service}</span>)}</div></div>
+                    <span className="dc-business-arrow" aria-hidden="true">↗</span>
+                  </Link>
+                ))}
+              </div>
+              {matchingCompanies.length === 0 && <div className="dc-empty">No businesses found. Try a different name or service.</div>}
+            </div>
+          )}
+        </section>
+
+        <section className="dc-how" aria-labelledby="dc-how-title">
+          <div className="dc-section-heading"><div><span className="dc-section-kicker">SIMPLE BY DESIGN</span><h2 id="dc-how-title">Local connections made easy</h2></div></div>
+          <div className="dc-how-grid">
+            <div><span className="dc-step">01</span><h3>Search for a service</h3><p>Browse categories or search for exactly what you need.</p></div>
+            <div><span className="dc-step">02</span><h3>Explore local businesses</h3><p>Find businesses offering those services and view their profiles.</p></div>
+            <div><span className="dc-step">03</span><h3>Connect directly</h3><p>Use each business's listed contact details to reach out.</p></div>
           </div>
-        </div>
-      </div>
-*/}
-      {showServiceModal && (
-        <ServiceProvidersModal 
-          service={currentService}
-          companies={serviceProviders}
-          onClose={() => setShowServiceModal(false)}
-        />
-      )}
-      
+        </section>
+
+        <section className="dc-map-section" aria-labelledby="dc-map-heading"><div className="dc-section-heading"><div><span className="dc-section-kicker">EXPLORE THE AREA</span><h2 id="dc-map-heading">Our reach</h2><p>Discover businesses and connections around our community.</p></div></div><div className="dc-map-shell"><MapComponent onPlanMarkerAdd={(lat, lng) => console.log('Marker added at:', lat, lng)} /></div></section>
+
+        <section className="dc-bottom-cta"><div><span className="dc-section-kicker">SUPPORT LOCAL</span><h2>Great communities start with local connections.</h2><p>Explore businesses serving Gordon County and nearby communities.</p></div><button type="button" onClick={() => { switchTab('companies'); setQuery(''); jumpToDirectory(); }}>Explore the directory →</button></section>
+      </main>
+      {modalService && <ServiceProvidersModal service={modalService} companies={serviceProviders} onClose={() => setModalService(null)} />}
       <Footer />
     </div>
   );
-};
-export default Home;
+}

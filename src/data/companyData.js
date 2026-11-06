@@ -49,6 +49,18 @@ export const getCategorizedServiceTypes = () => {
   };
 };
 
+export const getCategoryMeta = () => ({
+  'Auto Services':               { icon: '🔧', description: 'Vehicle repair, maintenance & diagnostics' },
+  'Fitness & Wellness':          { icon: '💪', description: 'Gyms, personal training & wellness services' },
+  'Construction & Infrastructure':{ icon: '🏗️', description: 'Site prep, paving, land clearing & more' },
+  'Utility Work':                { icon: '⚙️', description: 'Utility infrastructure & land surveying' },
+  'Religious Organization':      { icon: '✝️', description: 'Local churches & community outreach' },
+  'Senior Care':                 { icon: '🏠', description: 'Assisted living & memory care services' },
+  'Skincare & Aesthetics':       { icon: '✨', description: 'Medical spa, facials & aesthetic treatments' },
+  'Meal Services':               { icon: '🍔', description: 'Dining, drive-in & catering experiences' },
+  'Marine & Boating':            { icon: '⛵', description: 'Custom boat building & marine design' },
+});
+
 // Find companies that offer a specific service
 export const getCompaniesByService = (serviceName) => {
   const companies = [
